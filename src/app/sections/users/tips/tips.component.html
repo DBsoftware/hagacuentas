@@ -1,0 +1,78 @@
+<div>
+  <!-- Search input MOBILE -->
+  <div class="pl-4 pr-4 p-3 border-bottom">
+    <form method="GET">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text bg-white border-right-0 border-left" style="background:#f1f1f1!important">
+            <i routerLink="/tips-financieros/category" [queryParams]="{query: query }" class="fa fa-search"></i>
+          </div>
+        </div>
+        <input #queryInp name="query" class="form-control border-left-0 border-right-0 pl-0"
+          (keyup)="changevalue(queryInp.value)" (keyup.enter)="goSearch()" [(ngModel)]="queryParam"
+          style="background:#f1f1f1" placeholder="Buscar" value="">
+        <div class="input-group-text bg-white border-left-0 border-right"
+          style="width: 39.86px;background:#f1f1f1 !important"></div>
+      </div>
+    </form>
+  </div>
+
+  <div *ngIf="!queryParam" class="text-center p-3">
+    <h4 class="_androgyne text-red no_h_styles">
+      <h1>Consejos financieros</h1>
+    </h4>
+  </div>
+
+  <!-- Categories -->
+  <div *ngIf="!queryParam" class="row justify-content-center col-web-7 p-3 m-0">
+
+    <a *ngFor="let category of categories" class="col-5 col-web-3 bodyCategory pt-3 pb-3 p-2"
+      routerLink="/tips-financieros/{{category.id}}">
+      <div class="text-center no_h_styles">
+        <img [class.m-2]="category.icon!='img_05.png' && category.icon!='img_04.png'"
+          [ngStyle]="{'width': (category.icon!='img_08.png')? '3em' : '4em' }" class="back-img"
+          src="{{UrlImg+getIcon(category.id,category.icon)}}">
+          <h2>
+            <div class="text-secondary" [innerHtml]="category.name"></div>
+          </h2>
+      </div>
+    </a>
+
+  </div>
+
+  <div *ngIf="queryParam">
+    <div class="row m-0 mb-5 pb-4">
+      <div *ngIf="tips.length>0" class="w-100">
+        <div class="p-0 pt-3 pb-3">
+          <div class="text-center">
+            <span class="text-red _androgyne title">Resultados de la búsqueda</span>
+          </div>
+        </div>
+        <div class="row m-0 justify-content-md-center">
+          <div class="col-md-8">
+            <div *ngFor="let tip of tips" class="p-2 pl-3 pr-3 mb-3 bodyTip">
+              <div class="p-0" [routerLink]="['/tips-financieros/'+tip.category+'/'+tip.id]">
+                <div class="text-center">
+                  <h5 class="text-secondary" style="font-weight:400">{{tip.title}}</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="tips.length==0 && finishedSearch"
+        class="h-75 w-100 mt-3 row align-items-center m-0 justify-content-center">
+        <div class="text-center text-secondary">
+          <div class="pb-2">
+            <img src="/iconos/search.png" style="width:9em">
+          </div>
+          <div>
+            <h5 class="font-weight-bold">No hemos encontrado<br> contenidos asociados a:</h5>
+            <span class="text-dark-red title">{{queryParamT}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

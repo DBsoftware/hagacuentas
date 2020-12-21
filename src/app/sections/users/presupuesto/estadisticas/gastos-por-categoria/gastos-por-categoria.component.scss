@@ -1,0 +1,31 @@
+* {
+    color: #4c4c4c;
+}
+
+.imgItem {
+    width: 24px;
+    height: 18px;
+    background: url(/assets/img/icons/down_red.png) no-repeat;
+    background-size: 100%;
+}
+.collapsed {
+    .imgItem {
+        width: 18px;
+        height: 24px;
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAfCAYAAAD9cg1AAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFxSURBVEhL7ZW9TQNBEIUPLDICQkLTAXRACSYkwx3YFQAVYCrAVGBCMugAOrBDQkIkAvieb1bM+fZ+dokQ/qSn2btg3s7sX7Hln7LaOxyhBbqwX9nsWKxA4i8bihUaDz/fnsvPNHYtbvJuUQzRE6aSxkk0GRyha+SNTtESk6vysx/RFgVIdkC4RJP1jx9e0RltU/taaTUIWGvukKoIqDqtzUP5GaeXQQCjEUFGqiwgk7mNayQZCGvbAvlqGk2SDQIYqRJ/Tk4w0dpUaNpFnZBsTPCzvrFYIbsCYe1aovWaYFrLl12BIKF2kj8rNX5lQAU6H+F0R89EtgHJtcC+71OLFbIMSK7E2kWBGe2KHrjUg3ZMUGLFwNx2VJReBrZb1G/dS54pyWc2jtJp4HrtrwftHF12nW9Eo4El1ow33wD1WldD6/YMRA1I/kLwfRZZL1uTgX8yNdNbEic9NIGBxQqTwb76/YHu0TnJH/V/y1+kKL4BkaRrNUe424cAAAAASUVORK5CYII=');
+        background-size: 100%;
+    }
+}
+
+.graphicSize {
+    width: 1000px;
+    height: 350px;
+    @media screen and (max-width: 768px) {
+        width: 600px;
+        padding-left: 5em;
+      }
+    @media screen and (max-width: 400px) {
+        width: 300px;
+        padding-left: 5em;
+      }
+}

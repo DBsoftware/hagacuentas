@@ -1,0 +1,37 @@
+<div class="d-flex justify-content-between p-3">
+    <div class="d-flex align-items-center" style="cursor:pointer">
+        <img width="25" src="/assets/img/icons/calendar.png" alt="">
+        <label class="month cp" (click)="calendar=!calendar">{{ data.month }}</label>
+    </div>
+    <div (click)="back()" class="d-flex align-items-center cp">
+        <label class="back cp">Volver</label>
+        <img width="25" src="/assets/img/icons/back.png" alt="">
+    </div>
+</div>
+<div class="row bg_gray justify-content-center p-3 m-0">
+    <div class="h6 font-weight-bold m-0">Programar mis alertas</div>
+    <div class="position-absolute w-100 text-right pr-2" style="max-width: 50em;margin-top: -1em;padding: 5px;">
+        <img alt="" routerLink="/presupuesto/alerts/add" src="/assets/img/icons/add_dashed_red.png" tabindex="0" style="width: 2.5em;">
+    </div>
+</div>
+<div class="pt-3 pb-3 pl-4 pr-4">
+    <div>
+        <div *ngFor="let alarm of alarms" (click)="activeAlert(alarm)" class="row border-bottom m-0 mb-2">
+            <div class="col-2 p-0" style="max-width: 3.5em;">
+                <img alt="" src="/assets/img/icons/alert_clock.png" class="w-100">
+            </div>
+            <div class="row m-0 col p-0 pl-2 align-items-center">
+                <div>
+                    <div class="col-12 font-weight-bold p-0 m-0" style="font-size: 16px;">{{alarm.nombre}}</div>
+                    <div class="col-12 p-0" style="font-size: 13px;">{{alarm.descripcion}}</div>
+                </div>
+            </div>
+            <div class="d-flex col-4 p-0 justify-content-end align-items-center">
+                <span>{{alarm.fecha | date:'short'}}</span>
+                <img alt="" [src]="next" width="15">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <app-calendar [data]="data" [selectDate]="true" (closeCalendarE)="closeCalendar()" *ngIf="calendar"></app-calendar> -->

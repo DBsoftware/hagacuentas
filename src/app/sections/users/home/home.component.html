@@ -1,0 +1,33 @@
+<div>
+  <div class="row justify-scontent-center text-center m-0">
+    <div class="col pt-5">
+      <img width="100" [src]="logo" alt="">
+    </div>
+    <div class="col-12 mb-3" style="line-height: 1">
+      <div class="txt_dg" style="font-size: 18pt">Bienvenido a</div>
+      <div class="txt_r _androgyne no_h_styles" style="font-size: 24pt">
+        <h1>Haga Cuentas</h1>
+      </div>
+    </div>
+    <div class="w-100 text-left">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <div class="row mx-0 justify-content-center w-100">
+    <div class="text-dim-gray pl-5 pr-5 pt-3">
+       <div align="center" ><span >Aquí usted podrá:</span></div>
+      <div>
+        <ol class="pt-2" id="items-list">
+          <li class="no_h_styles" ><h2> Crear su presupuesto personal o presupuestos específicos según sus necesidades.</h2></li>
+          <li class="no_h_styles" ><h2> Registrar sus movimientos de ingresos y gastos cada vez que se presenten.</h2></li>
+          <li class="no_h_styles" ><h2> Consultar y comparar su presupuesto mes a mes. </h2></li>
+          <li class="no_h_styles" ><h2> Crear y programar alertas para pagos. </h2></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="text-center p-3">
+    <button id='Crear_presupuesto' class="btn rounded-1_5 bg_red text-white" routerLink="/presupuestos" style="width:14em" tabindex="0">Crear presupuesto</button>
+  </div>
+
+</div>

@@ -1,0 +1,57 @@
+<div class="m-5 m-lg-2 txt_g">
+  <label class="mb-3">{{token? 'Reestablecer contraseña':'Recordar contraseña'}}</label>
+  <div *ngIf="err">
+    <span class="txt_r">{{err}}</span>
+    <span *ngIf="register" style="font-size:14px"> ( <a routerLink="/register">Registrarse</a> )</span>
+  </div>
+  <div *ngIf="!token" class="inputForm mb-3">
+    <i>
+      <img src="/assets/img/icons/email.png" alt="">
+    </i>
+    <input #emailD (keyup)="validEmail(emailD)" name="email" type="email" placeholder="Correo electrónico" >
+  </div>
+  <div *ngIf="!token" class="text-left pl-3 pr-2 pl-md-5 pr-md-5">
+    <p style="font-size:13px">
+      Ingrese el correo electrónico que registró
+      en <b>Haga Cuentas</b> y recibirá un mensaje
+      para restablecer la contraseña.
+    </p>
+  </div>
+  <div *ngIf="token">
+    <div class="inputForm mb-3">
+      <i>
+        <img src="/assets/img/icons/pass.png" alt="">
+      </i>
+      <input  id="pass" name="pass" type="password" autocomplete="false" placeholder="Contraseña"  >
+    </div>
+    <div class="inputForm mb-3">
+      <i>
+        <img src="/assets/img/icons/pass.png" alt="">
+      </i>
+      <input  id="passConf" name="pass" type="password" autocomplete="false" placeholder="Confirmar contraseña" >
+    </div>
+  </div>
+  <div class="text-center">
+    <button class="btn btn_red btn_darkDisable" *ngIf="!emailPass">Enviar</button>
+    <button class="btn btn_red" (click)="remember('')" *ngIf="emailPass">Enviar</button>
+  </div>
+  <hr class="mb-3" />
+  <div>
+    <div>
+      <a routerLink="/login" class="txt_b cp">Volver</a>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalRemember" tabindex="-1" role="dialog" aria-labelledby="modalRemember"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        Hemos enviado un correo a su cuenta registrada
+      </div>
+    </div>
+    <img alt="" src="/assets/img/icons/close.png" width="45" class="closeBtn" data-dismiss="modal">
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="d-flex justify-content-center pt-4 pb-3">
+  <!-- <div class="col circle gray" [ngClass]="{'green': data.balance>0, 'orange': data.balance<0}"> -->
+  <div class="col circle gray" >
+    <div class="row m-0 h-100 justify-content-center align-items-center">
+      <div class="text-center mt-4">
+        <div><span>{{(balanceData | async)?.balance | currency:lang:'symbol-narrow':'1.0' }}</span></div>
+        <div>
+          <label class="no_h_styles">
+            <h4>
+              Balance
+            </h4>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="p-3">
+  <div class="d-flex justify-content-between text_gray border-bottom pb-3 mb-3">
+    <div class="d-flex align-items-center font-weight-bold">
+      <div class="no_h_styles">
+        <h3>
+          Total<br>Ingresos
+        </h3>
+      </div>
+      <span class="pl-3 pr-3">-</span>
+      <div class="no_h_styles">
+        <h3>
+          Total<br>Gastos
+        </h3>
+      </div>
+    </div>
+    <div class="d-flex align-items-end">
+      <div class="font-weight-bold" [ngClass]="{'text_green': (balanceData | async)?.balance>0, 'text_orange': (balanceData | async)?.balance<0}" >
+        {{(balanceData | async)?.balance | currency:lang:'symbol-narrow':'1.0' }}
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between text_gray border-bottom pb-2 mb-3">
+    <div class="no_h_styles">
+    <h3>
+      Total Ingresos
+    </h3>
+    </div>
+    <div class="font-weight-bold text_green">
+        {{(balanceData | async)?.totalIngresos | currency:lang:'symbol-narrow':'1.0' }}
+    </div>
+  </div>
+  <div class="d-flex justify-content-between text_gray border-bottom pb-2">
+    <div class="no_h_styles">
+    <h3>
+      Total Gastos
+    </h3>
+    </div>
+    <div class="font-weight-bold text_orange">
+        {{(balanceData | async)?.totalGastos | currency:lang:'symbol-narrow':'1.0' }}
+    </div>
+  </div>
+</div>

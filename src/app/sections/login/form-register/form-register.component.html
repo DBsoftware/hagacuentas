@@ -1,0 +1,63 @@
+<div class="m-5 m-lg-2">
+  <label class="mb-3 txt_g">Regístrese para continuar</label><br>
+  <span *ngIf="err" class="txt_r">* {{err}}</span>
+  <div *ngIf="register">
+    <span style="font-size:14px"> ( <a routerLink="/login/remember">Recordar contraseña</a> )</span>
+  </div>
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()" >
+    <div class="inputForm mb-4 position-relative">
+      <i>
+        <img src="/assets/img/icons/email.png" alt="">
+      </i>
+      <input id="email" formControlName="correo" name="correo" type="email" placeholder="Correo electrónico">
+      <div class="invalid-feedback d-inline-block position-absolute feedback-position"  *ngIf="(myForm.get('correo').hasError('required') || myForm.controls.correo.hasError('pattern')) && myForm.get('correo').touched">
+        Por favor introducir un correo válido 
+      </div>
+    </div>
+    <div class="inputForm mb-4 position-relative">
+      <i>
+        <img src="/assets/img/icons/pass.png" alt="">
+      </i>
+      <input id="pass" name="clave" formControlName="clave" type="password" placeholder="Contraseña">
+      <div class="invalid-feedback d-inline-block position-absolute feedback-position"  *ngIf="myForm.get('clave').hasError('required') && myForm.get('clave').touched">
+        La contraseña es requerida
+      </div>
+      <div class="invalid-feedback d-inline-block position-absolute feedback-position"  *ngIf="myForm.get('clave').hasError('minlength') && myForm.get('clave').touched">
+        La contraseña debe ser mínimo de 4 caracteres
+      </div>
+    </div>
+    <!-- <div class="text-center mb-4">
+      <label style="font-size: 14px;" class="txt_g">La contraseña debe ser mínimo de 4 caracteres</label>
+    </div> -->
+    <div class="d-flex justify-content-center">
+      <p style="font-size:14px" class="col-11 p-0 txt_g text-justify">
+        Al compartir su correo electrónico
+        tendrá acceso a la información de los
+        presupuestos guardados, inclusive si
+        cambia su dispositivo.
+      </p>
+    </div>
+ 
+  <div class="formLog mb-3 position-relative">
+    <input type="checkbox" formControlName="aceptar" #check name="terms" id="terms" >
+    <label>
+      <img src="/assets/img/icons/img_chulo_rojo.png" alt="">
+    </label>
+    <label (click)="open()" class="txt_g"><u>Acepto términos y condiciones</u></label>
+    <div class="invalid-feedback d-inline-block position-absolute feedback-position" style="top: 1.5em; left: 3em;" *ngIf="(!myForm.get('aceptar').value && myForm.get('aceptar').touched)">
+      Es necesario aceptar los terminos 
+    </div>
+  </div>
+
+  <div class="text-center">
+    <button [disabled]="myForm.invalid" id="Registrarse" class="btn btn_red">Registrarse</button>
+  </div>
+</form>
+  <hr class="mb-3" />
+  <div>
+    <div>
+      <a (click)="back()" class="txt_b cp">Volver</a>
+    </div>
+  </div>
+</div>
+

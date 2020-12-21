@@ -1,0 +1,52 @@
+<div class="text-center mb-4">
+    <button class="optRange btn p-2 mr-2" [class.active]="botonCatidad==true" id="ultimos_3_meses" (click)="changeOpt(3)">ÚLTIMOS 3 MESES</button>
+    <button class="optRange btn p-2 ml-2" [class.active]="botonCatidad==false" id="ultimos_6_meses" (click)="changeOpt(6)">ÚLTIMOS 6 MESES</button>
+</div>
+<div [class.div-load]="loader" style="line-height: 1">
+  <!-- <div  class="row loader align-items-center"></div> -->
+  <div class="row m-0 justify-content-center">
+    <div class="text-center border-right pr-3">
+      <b>Seleccione</b><br>
+      Categoría
+    </div>
+    <div *ngIf="categoriaActiva" class="d-flex ml-2 mr-2 align-items-center sSubCateg">
+      <img [src]="imgParser(categoriaActiva)" style="width: 3em">
+      <label class="m-0 p-2 text-truncate no_h_styles">
+        <h3>
+          {{categoriaActiva.nombre}}
+        </h3>
+      </label>
+    </div>
+    <div class="btn-group pl-md-3 position-relative">
+      <button type="button" class="btn-toggle-items" data-toggle="dropdown" aria-haspopup="false">
+        <img src="/assets/img/icons/down.png" alt="">
+      </button>
+      <div class="dropdown-menu dropdown-menu-right" style="max-height: 15em;overflow: auto;z-index:9999">
+        <button *ngFor="let categ of MovList | async" (click)="activeCateg(categ)" class="dropdown-item cp"
+          type="button">
+          <img [src]="imgParser(categ)" style="width: 3em">
+          <label class="m-0 p-2 cp no_h_styles">
+            <h4>
+              {{categ.nombre}}
+            </h4>
+          </label>
+        </button>
+      </div>
+    </div>
+  <div *ngIf="!activeTable"  class="row mx-0 justify-content-center w-100 h-100 align-content-center my-5" style="display: block" > 
+    <ng-container *ngIf="categoriaActiva; else elseTemplate">
+      <canvas baseChart
+      [datasets]="barChartData"
+      [labels]="barChartLabels"
+      [options]="barChartOptions"
+      [plugins]="barChartPlugins"
+      [legend]="barChartLegend"
+      [chartType]="barChartType">
+      </canvas>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <h2>No hay datos suficientes</h2>
+    </ng-template>
+  </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<!-- Splash Screen -->
+<div class="splash" *ngIf="splash | async">
+    <div style="width:40vh">
+        <img class="w-100" src="../assets/img/icons/splash.png" alt="">
+        <div   class="col-1 px-0 loader align-items-center position-absolute"></div>
+        <p style="color: white;text-align: center;" >Descargando y sincronizando tus datos...</p>
+    </div>
+</div>
+
+<app-header></app-header>
+<div class="row mx-0 w-100 justify-content-center" style="margin-top: 60px; margin-bottom: 60px;">
+    <div class="col-12 col-md-10 col-lg-8 col-xl-5 mr-0" >
+            <router-outlet></router-outlet>
+    </div>
+</div>

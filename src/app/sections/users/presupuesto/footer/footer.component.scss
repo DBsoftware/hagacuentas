@@ -1,0 +1,72 @@
+:host {
+    position: fixed;
+    display: inline;
+    left: 0;
+    width: 100%;
+    bottom: 0;
+    background-color: #aaaaaa;
+    z-index: 1032;
+}
+
+label {
+    font-family: "Alte Haas Grotesk Bold";
+    font-size: 12px;
+    color: #4c4c4c;
+}
+
+label.on {
+    color: #eff0f0;
+}
+
+img {
+    height: 35px;
+    width: 35px;
+}
+
+.col {
+    padding: 0;
+}
+
+
+.index-icon{
+    background-image: url('/assets/img/Footer/icono1.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.ingresos-icon {
+    background-image: url('/assets/img/Footer/icono2.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.gastos-icon {
+    background-image: url('/assets/img/Footer/icono3.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.estadisticas-icon {
+    background-image: url('/assets/img/Footer/icono4.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.active{
+    .estadisticas-icon {
+        background-image: url('/assets/img/Footer/icono4_2.png');
+    }
+    .gastos-icon {
+        background-image: url('/assets/img/Footer/icono3_2.png');
+    }
+    .ingresos-icon {
+        background-image: url('/assets/img/Footer/icono2_2.png');
+    }
+    .index-icon{
+        background-image: url('/assets/img/Footer/icono1_2.png');
+    }
+    label h2 {
+        color: white;
+    }
+    &:focus{
+        border: none !important;
+        box-shadow: none !important;
+    }
+    }

@@ -1,0 +1,12 @@
+<div class="d-flex justify-content-between p-3">
+  <div class="d-flex align-items-center" style="cursor:pointer" (click)="openCalendar()">
+    <img width="25" [src]="generalIcons.calendar" alt="">
+    <label class="month cp" >{{ auxiliars.getMonth((month| async)) }}</label>
+    <input type="hidden" [min]="minDate" [max]="maxDate" matInput [matDatepicker]="picker" >
+    <mat-datepicker startView="year" touchUi #picker (monthSelected)="monthSelectedHandler($event)"></mat-datepicker>
+  </div>
+  <div (click)="back()" class="d-flex align-items-center cp">
+    <label class="back cp">Volver</label>
+    <img width="25" [src]="generalIcons.back" alt="">
+  </div>
+</div>

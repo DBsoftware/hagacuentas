@@ -1,0 +1,56 @@
+<div class="w-100">
+  <div class="row m-0 justify-content-center">
+    <div class="head" [ngClass]="{'up': data.balance>0, 'down': data.balance<0}">
+      <div class="text-center">
+        <label>{{ auxiliars.getMonth((month | async)) }}</label>
+        <div class="name font-weight-bold mb-2">
+          {{ (data | async)?.nombre }}
+        </div>
+        <div class="mb-3 balanceNumber font-weight-bold">
+          {{ (balanceData| async)?.balance | currency:lang:'symbol-narrow':'1.0' }}
+        </div>
+        <label class="mb-4 pb-2">Balance</label>
+      </div>
+    </div>
+  </div>
+  <div class="text-center mt-3 mb-3">
+    <label class="text-register no_h_styles">
+      <h1>
+        <span class="text-red _androgyne">Registre</span> sus ingresos y gastos
+      </h1>
+    </label>
+  </div>
+  <div class="row m-0 justify-content-center alig-items-center">
+    <div routerLink="/presupuesto/ingresos" class="col circle ingresos">
+      <div class="row m-0 h-100 justify-content-center align-items-center">
+        <div class="text-center">
+          <div style="line-height: 1.2;"><i>+</i></div>
+          <div>
+            <span class="no_h_styles">
+              <h2>
+                {{ (balanceData| async)?.totalIngresos | currency:lang:'symbol-narrow':'1.0' }}
+              </h2>
+            </span>
+          </div>
+          <div><label>Ingresos</label></div>
+        </div>
+      </div>
+    </div>
+    <div routerLink="/presupuesto/gastos" class="col circle gastos">
+      <div class="row m-0 h-100 justify-content-center align-items-center">
+        <div class="text-center mb-4">
+          <div style="line-height: 2;"><i>_</i></div>
+          <div>
+            <h2>
+              <span>
+                {{  (balanceData| async)?.totalGastos | currency:lang:'symbol-narrow':'1.0'}}
+              </span>
+            </h2>
+          </div>
+          <div><label>Gastos</label></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

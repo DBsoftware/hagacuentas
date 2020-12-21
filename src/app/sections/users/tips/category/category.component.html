@@ -1,0 +1,21 @@
+<div>
+  <div class="text-center p-4">
+    <img src="{{UrlImg}}/img/tips/icons/{{dataCategory.icon}}" alt="" width="60">
+      <h5 class="_androgyne text-red  no_h_styles" [innerHtml]="dataCategory.name"></h5>
+  </div>
+  <div class="container p-0 mt-3">
+    <div *ngIf="tips.length>0" class="row m-0 justify-content-md-center">
+      <div *ngFor="let tip of tips" class="p-2 pl-4 pr-4 mb-3 bodyTip col-md-8 ml-md-5 mr-md-5">
+        <div routerLink="/tips-financieros/{{idCategory}}/{{tip.id}}">
+          <div class="text-center">
+            <span class="text-secondary no_h_styles" style="font-weight:400">
+              <h4>
+                {{tip.title}}
+              </h4>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+.formLog input[type=checkbox] + label {
+    margin: 0 7px 0 0;
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: #e4e5e6;
+}
+
+.formLog input[type=checkbox] {
+    width: 20px;
+    height: 20px;
+    margin-right: -20px;
+}
+
+input[type=checkbox]+label > img {
+    width: 30px;
+}
+
+.disabled {
+  pointer-events: none;
+}
+
+.feedback-position {
+    bottom: -1.5em;
+    left: 1.1em;
+}

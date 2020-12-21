@@ -1,0 +1,21 @@
+<div class="modal fade social" id="socialButtons" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Compartir</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <input #sU id="sharedUrl" type="text" class="d-none">
+      </div>
+      <div class="modal-body text-center">
+        <input id="urlContent" class="d-none" type="text" value="default">
+        <share-buttons [theme]="'default'"
+          [include]="['facebook','twitter','linkedin']"
+          [show]="4"
+          [url]="url"
+         ></share-buttons>
+      </div>
+    </div>
+  </div>
+</div>

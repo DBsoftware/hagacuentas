@@ -1,0 +1,122 @@
+label {
+    font-size: 16px;
+    margin: 0;
+    margin-left: .3em;
+}
+
+.month, .back {
+    color: #231f20;
+    font-weight: bold;
+}
+
+.title {
+    color: #4c4c4c;
+    font-size: 20px;
+}
+
+.balance, .subTitle {
+    font-weight: bold;
+    color: #1c9b90;
+}
+
+.balance {
+    font-size: 28px;
+}
+
+.subTitle {
+    font-size: 18px;
+}
+
+.divSub {
+    padding: 0;
+    margin-bottom: 1.5rem;
+    line-height: 1;
+    span {
+        font-size: 14px;
+        color: #4c4c4c;
+    }
+}
+
+.itemSubCateg{
+    color: #4b4b4b;
+    background: white;
+    border-radius: .5em;
+    text-align: left;
+}
+
+.orange {
+    color: #f5921d;
+}
+
+.cp {
+    cursor: pointer;
+}
+
+.loader {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+}
+
+.div-load {
+  position: relative;
+}
+
+.div-load:before {
+  content: "";
+  background: #00000017;
+  position: absolute;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+}
+
+.loader:after {
+  content: " ";
+  position: absolute;
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: rotate 1.2s linear infinite;
+  margin: auto 50%;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.dv-spinner {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+}
+.dv-spinner {
+  content: " ";
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 3px solid gray;
+  border-color: gray transparent gray transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

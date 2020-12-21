@@ -1,0 +1,110 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+ <!--
+ created with Free Online Sitemap Generator www.xml-sitemaps.com
+-->
+<url>
+    <loc>https://hagacuentas.davivienda.com</loc>
+    <lastmod>2019-10-21T18:12:25+00:00</lastmod>
+    <priority>1.00</priority>
+</url>
+<url>
+    <loc>https://hagacuentas.davivienda.com/inicio</loc>
+    <lastmod>2019-10-21T18:12:25+00:00</lastmod>
+    <priority>1.00</priority>
+</url>
+<url>
+    <loc>https://hagacuentas.davivienda.com/presupuestos</loc>
+    <lastmod>2019-10-21T18:12:25+00:00</lastmod>
+    <priority>0.50</priority>
+</url>
+<url>
+    <loc>https://hagacuentas.davivienda.com/presupuesto</loc>
+    <lastmod>2019-10-21T18:12:25+00:00</lastmod>
+    <priority>0.50</priority>
+</url>
+<url>
+    <loc>https://hagacuentas.davivienda.com/presupuesto/alerts</loc>
+    <lastmod>2019-10-21T18:12:25+00:00</lastmod>
+    <priority>0.50</priority>
+</url>
+<url>
+    <loc>https://hagacuentas.davivienda.com/presupuesto/alerts/add</loc>
+    <lastmod>2019-10-21T18:12:25+00:00</lastmod>
+    <priority>0.50</priority>
+</url>
+<url>
+    <loc>https://hagacuentas.davivienda.com/presupuesto/estadisticas</loc>
+    <lastmod>2019-10-21T18:12:25+00:00</lastmod>
+    <priority>0.50</priority>
+</url>
+<url>
+    <loc>https://hagacuentas.davivienda.com/presupuesto/estadisticas/resumen</loc>
+    <lastmod>2019-10-21T18:12:25+00:00</lastmod>
+<priority>0.50</priority>
+</url>
+<url>
+    <loc>https://hagacuentas.davivienda.com/presupuesto/estadisticas/gastos-por-categoria</loc>
+    <lastmod>2019-10-21T18:12:25+00:00</lastmod>
+    <priority>0.50</priority>
+</url>
+<url>
+    <loc>https://hagacuentas.davivienda.com/presupuesto/estadisticas/movimientos</loc>
+    <lastmod>2019-10-21T18:12:25+00:00</lastmod>
+    <priority>0.50</priority>
+</url>
+<url>
+    <loc>https://hagacuentas.davivienda.com/presupuesto/estadisticas/comparar</loc>
+    <lastmod>2019-10-21T18:12:25+00:00</lastmod>
+    <priority>0.50</priority>
+</url>
+<url>
+    <loc>https://hagacuentas.davivienda.com/presupuesto/ingresos</loc>
+    <lastmod>2019-10-21T18:12:25+00:00</lastmod>
+    <priority>0.50</priority>
+</url>
+<url>
+    <loc>https://hagacuentas.davivienda.com/presupuesto/gastos</loc>
+    <lastmod>2019-10-21T18:12:25+00:00</lastmod>
+    <priority>0.50</priority>
+</url>
+<url>
+    <loc>https://hagacuentas.davivienda.com/presupuesto/ingresos/calculadora</loc>
+    <lastmod>2019-10-21T18:12:25+00:00</lastmod>
+    <priority>0.50</priority>
+</url>
+<url>
+    <loc>https://hagacuentas.davivienda.com/presupuesto/gastos/calculadora</loc>
+    <lastmod>2019-10-21T18:12:25+00:00</lastmod>
+    <priority>0.50</priority>
+</url>
+<url>
+    <loc>https://hagacuentas.davivienda.com/presupuesto/gastos/agregar-categoria</loc>
+    <lastmod>2019-10-21T18:12:25+00:00</lastmod>
+    <priority>0.50</priority>
+</url>
+<url>
+    <loc>https://hagacuentas.davivienda.com/presupuesto/ingresos/agregar-categoria</loc>
+    <lastmod>2019-10-21T18:12:25+00:00</lastmod>
+    <priority>0.50</priority>
+</url>
+<url>
+    <loc>https://hagacuentas.davivienda.com/tips-financieros</loc>
+    <lastmod>2019-10-21T18:12:25+00:00</lastmod>
+    <priority>0.50</priority>
+</url>
+<url>
+    <loc>https://hagacuentas.davivienda.com/login</loc>
+    <lastmod>2019-10-21T18:12:25+00:00</lastmod>
+    <priority>0.50</priority>
+</url>
+<url>
+    <loc>https://hagacuentas.davivienda.com/login/remember</loc>
+    <lastmod>2019-10-21T18:12:25+00:00</lastmod>
+    <priority>0.50</priority>
+</url>
+<url>
+    <loc>https://hagacuentas.davivienda.com/register</loc>
+    <lastmod>2019-10-21T18:12:25+00:00</lastmod>
+    <priority>0.50</priority>
+</url>
+</urlset>

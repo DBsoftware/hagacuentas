@@ -1,0 +1,53 @@
+<app-cabecera ></app-cabecera>
+
+<div>
+  <div class="text-center">
+    <h5 class="text-blue _androgyne mb-0">Resumen</h5>
+    <h4 class="text-dark-gray font-weight-bold">{{ ( data | async)?.nombre }} </h4>
+  </div>
+  <div>
+    <div class="d-flex headItems border-bottom">
+      <div class="col bg_green d-flex p-1 justify-content-center"  routerLink="resumen" routerLinkActive="col-5" #est="routerLinkActive">
+        <span>
+          <img [src]="tabs['icon_1']" alt="">
+        </span>
+        <span class="text-white pl-2 d-flex align-items-center _androgyne no_h_styles" *ngIf="est.isActive">
+          <h5>Resumen</h5>
+        </span>
+      </div>
+      <div class="col bg_yellow d-flex p-1 justify-content-center" routerLink="gastos-por-categoria" routerLinkActive="col-5" #gpc="routerLinkActive">
+        <span>
+          <img [src]="tabs['icon_2']" alt="">
+        </span>
+        <span class="text-white pl-2 d-flex align-items-center _androgyne no_h_styles" *ngIf="gpc.isActive">
+          <h3>
+              Gastos por categoría
+          </h3>
+        </span>
+      </div>
+      <div class="col bg_orange d-flex p-1 justify-content-center"  routerLink="movimientos" routerLinkActive="col-5" #mov="routerLinkActive">
+        <span>
+          <img [src]="tabs['icon_3']" alt="">
+        </span>
+        <span class="text-white pl-2 d-flex align-items-center _androgyne no_h_styles" *ngIf="mov.isActive">
+        <h3>
+          Movimientos
+        </h3>
+        </span>
+      </div>
+      <div class="col bg_blue d-flex p-1 justify-content-center"  routerLink="comparar" routerLinkActive="col-5" #comp="routerLinkActive">
+        <span>
+          <img [src]="tabs['icon_4']" alt="">
+        </span>
+        <span class="text-white pl-2 d-flex align-items-center _androgyne no_h_styles" *ngIf="comp.isActive">
+          <h3>Comparar</h3>
+        </span>
+      </div>
+    </div>
+    <div class="w-100">
+        <router-outlet ></router-outlet>
+  </div>
+</div>
+
+<!-- <app-calendar [data]="data" [selectDate]="true" (closeCalendarE)="closeCalendar()" *ngIf="calendar"></app-calendar> -->
+

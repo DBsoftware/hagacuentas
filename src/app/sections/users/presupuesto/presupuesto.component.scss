@@ -1,0 +1,32 @@
+::ng-deep  .mat-calendar-header{
+    background: #e01518;
+    color: white;
+}
+
+::ng-deep .mat-calendar-body-selected{
+    background-color: #e01518;
+    color: #fff;
+}
+::ng-deep .mat-calendar-body-today:not(.mat-calendar-body-selected){
+    border-color: #1B9B90
+}
+
+::ng-deep  .mat-calendar-previous-button::after{
+    color: white;
+}
+
+::ng-deep  .mat-calendar-next-button::after{
+    color: white;
+}
+
+::ng-deep .mat-calendar-arrow {
+    border-top-color: white;
+}
+
+::ng-deep .mat-calendar-body-cell-content{
+    font-size: 1.5em;
+}
+
+::ng-deep .mat-calendar-table-header th {
+    font-size: 1em;;
+}

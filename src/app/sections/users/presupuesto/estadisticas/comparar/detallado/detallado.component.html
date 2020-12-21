@@ -1,0 +1,69 @@
+<div  class="d-flex itemsMonth ovf pl-1 pr-1" >
+  <div *ngFor="let label of labels;let last = last"
+    class="bg_red text-white h6 p-2 pl-3 pr-3 pl-md-4 pr-md-4 col" [class.mr-2]="!last">{{label}}</div>
+</div>
+<div class="">
+  <h4 class="txt_r font-weight-bold no_h_styles">
+    <h3>Ingresos</h3>
+  </h4>
+  <mat-accordion >
+    <mat-expansion-panel *ngFor="let categ of ingresosTable | async" class="pl-3 pl-lg-0 " hideToggle>
+      <mat-expansion-panel-header style="padding: 0;">
+        <div class="iconDown cp" data-toggle="collapse">
+          <img src="/assets/img/icons/down_red.png" alt="" style="width: 20px">
+        </div>
+          <div class="d-flex text-item ovf border w-100"  >
+            <div class="p-1 col divI"
+              *ngFor="let value of [0,0,0];let last = last; let i = index"
+              [class.border-right]="!last">
+              <div>{{categ.nombre}}</div>
+              <div class="text-right font-weight-bold">{{ categ.total[i]  | currency:lang:'symbol-narrow':'1.0' }}</div>
+            </div>
+          </div>
+      </mat-expansion-panel-header>
+      <div *ngFor="let subCateg of categ.subcategorias" >
+        <div  class="d-flex text-item ovf border bg_lightgray">
+          <div class="p-1 col divI"
+            *ngFor="let valueS of [0,0,0];let last = last; let i = index"
+            [class.border-right]="!last">
+            <div>{{subCateg.nombre}}</div>
+            <div class="text-right font-weight-bold">{{ subCateg.total[i]  | currency:lang:'symbol-narrow':'1.0' }}</div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <div >
+
+  <h4 class="txt_r font-weight-bold no_h_styles">
+    <h3>Gastos</h3>
+  </h4>
+  <mat-accordion >
+    <mat-expansion-panel *ngFor="let categ of gastosTable | async" class="pl-3 pl-lg-0 " hideToggle>
+      <mat-expansion-panel-header style="padding: 0;">
+        <div class="iconDown cp"  >
+          <img src="/assets/img/icons/down_red.png" alt="" style="width: 20px">
+        </div>
+        <div class="d-flex text-item ovf border w-100" (scroll)="scrollAll($event)">
+          <div class="p-1 col divI"
+            *ngFor="let value of [0,0,0];let last = last; let i = index"
+            [class.border-right]="!last">
+            <div>{{categ.nombre}}</div>
+            <div class="text-right font-weight-bold">{{ categ.total[i]  | currency:lang:'symbol-narrow':'1.0' }}</div>
+          </div>
+        </div>
+      </mat-expansion-panel-header>
+      <div *ngFor="let subCateg of categ.subcategorias"  >
+        <div  class="d-flex text-item ovf border bg_lightgray">
+          <div class="p-1 col divI"
+            *ngFor="let valueS of [0,0,0] ;let last = last; let i = index"
+            [class.border-right]="!last">
+            <div>{{subCateg.nombre}}</div>
+            <div class="text-right font-weight-bold">{{ subCateg.total[i]  | currency:lang:'symbol-narrow':'1.0' }}</div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <div class="mb-5"></div>
+

@@ -1,0 +1,101 @@
+<div class="p-2 pl-3 pr-3 mb-5">
+  <div class="row m-0 p-3 mb-2" style="background-color:#eff0f0">
+    <div class="d-flex justify-content-between align-items-center w-100">
+      <div class="h5 font-weight-bold m-0">{{ date }}</div>
+      <div class="col-6 p-0">
+        <div class="d-flex justify-content-between">
+          <label class="m-0 no_h_styles" style="color:#6d6e71">
+            <h2>Ingresos</h2>
+          </label><br>
+          <!-- <h5 class="m-0 font-weight-bold text-blue">{{ingresosVal | money: lang}}</h5> -->
+          <h5 class="m-0 font-weight-bold text-blue">{{(balanceData|async).totalIngresos | currency:lang:'symbol-narrow':'1.0' }}</h5>
+        </div>
+        <div class="d-flex justify-content-between">
+          <label class="m-0 no_h_styles" style="color:#6d6e71">
+            <h2>Gastos</h2>
+          </label>
+          <!-- <h5 class="m-0 font-weight-bold text_orange">{{gastosVal | money: lang}}</h5> -->
+          <h5 class="m-0 font-weight-bold text_orange">{{(balanceData|async).totalGastos | currency:lang:'symbol-narrow':'1.0' }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row m-0 p-3 mb-2" style="background-color:#cfd1d2">
+    <div class="h5 m-0 font-weight-bold no_h_styles">
+    <h2>
+      Ingresos
+    </h2>
+    </div>
+  </div>
+  <div  *ngIf="gastosMov | async">
+    <div *ngFor="let ingreso of ingresosMov" (click)="activeSub(ingreso)" class="row m-0 p-2 mb-2" style="background-color:#eff0f0">
+      <div style="width: 4em;" class="pl-2 pr-2">
+        <img class="w-100"  [src]="imgParser(ingreso)" alt="">
+      </div>
+      <div class="d-flex align-items-center h6 font-weight-bold m-0 p-0 col justify-content-between">
+        <div class="no_h_styles" >
+        <h3>
+          {{ingreso.nombre}}
+        </h3>
+        </div>
+        <div class="d-flex align-items-center" style="color:#8f9193">
+          <!-- {{ingreso[0].valor | money: lang}} -->
+          {{ingreso.total | currency:lang:'symbol-narrow':'1.0' }}
+          <img [src]="next" alt="" width="20">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row m-0 p-3 mb-2" style="background-color:#cfd1d2">
+    <div class="h5 m-0 font-weight-bold no_h_styles">
+      <h2>Gastos</h2>
+    </div>
+  </div>
+  <div>
+    <div *ngFor="let gasto of (gastosMov | async)" (click)="activeSub(gasto)" class="row m-0 p-2 mb-2" style="background-color:#eff0f0">
+      <div style="width: 4em;" class="pl-2 pr-2">
+        <!-- <img class="w-100" src="/assets/img/icons/gastos/{{gasto[0].imagen}}" alt=""> -->
+        <img class="w-100"  [src]="imgParser(gasto)" alt="">
+      </div>
+      <div class="d-flex align-items-center h6 font-weight-bold m-0 p-0 col justify-content-between">
+        <div class="no_h_styles" >
+          <h3>
+            {{gasto.nombre}}
+          </h3>
+        </div>
+        <div class="d-flex align-items-center" style="color:#8f9193">
+          {{gasto.total | currency:lang:'symbol-narrow':'1.0' }}
+          <img [src]="next" alt="" width="20">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="subCategories" class="fixed-top h-100 w-100 d-flex justify-content-center" style="background-color:#000000cf;z-index: 1031;">
+  <div class="col-12 text-right p-0">
+    <img (click)="subCategories = null" alt="" [src]="generalIcons.close" width="45" class="mr-2 mt-2">
+    <div class="row m-0 text-white mt-5 justify-content-center">
+      <label class="col-12 text-center">Seleccione una subcategoría</label>
+      <div class="col-12 col-lg-6" style="overflow: auto;height: 70vh;padding-bottom: 3.5em;">
+        <div *ngFor="let subCateg of subCategories" >
+          <div *ngIf="subCateg.disponible"
+            [class.d-flex]="subCateg.estado==1"
+            [class.d-none]="subCateg.estado==0"
+            class="row justify-content-between align-items-center ml-3 mr-3 mt-2 p-2 itemSubCateg"
+            (click)="activeSub(subCateg)">
+            <div>
+              <img width="50" [src]="imgParser(subCateg)"  alt="">
+              <label>{{ subCateg.nombre }}</label>
+            </div>
+            <div class="mr-1">
+              <!-- <span class="d-inline-block mt-2" style="color:#8f9193" >{{auxiliars.cleanNumber(subCateg.movimientos[0]?.valor) | currency:lang:'symbol-narrow':'1.0' }}</span>  -->
+              <img [src]="next" alt="" width="20" style="margin-top: -10%" >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,89 @@
+<div>
+  <div class="d-flex justify-content-between p-3">
+    <div class="d-flex align-items-center"></div>
+    <div class="d-flex align-items-center cp" [routerLink]="['/presupuesto/alerts']">
+      <label class="back cp">Volver</label>
+      <img width="25" src="/assets/img/icons/back.png" alt="">
+    </div>
+  </div>
+  <div class="bg_gray text-center p-2">
+    <label class="text-dim-gray font-weight-bold">Crear alerta</label>
+    <i class="float-right">
+      <img (click)="save()" src="/assets/img/icons/img_chulo_{{ iconSave? 'rojo':'gris_dark'}}.png" alt="" width="25">
+    </i>
+  </div>
+  <div>
+    <div class="itemForm p-2 pl-3 pr-3">
+      <label>Nombre</label>
+      <input class="form-control" type="text" placeholder="Escriba el nombre de la alerta"
+        [(ngModel)]="name">
+    </div>
+    <div class="itemForm p-2 pl-3 pr-3 mb-2">
+      <label>Descripción</label>
+      <input class="form-control" type="text" placeholder="Escriba una breve descripción"
+        [(ngModel)]="description" maxlength="255">
+    </div>
+  </div>
+  <div class="divisor"></div>
+  <div class="p-2 pl-3 pr-3">
+    <div class="d-flex">
+      <label class="pr-3">Fecha</label>
+      <div class="rounded bg-white" (click)="activeCalendar=true">{{hourVal}}</div>
+    </div>
+  </div>
+  <div class="divisor"></div>
+
+  <div class="p-2 pl-3 pr-3">
+    <div *ngIf="!activeSave" class="row m-0 mb-2">
+      <label class="pr-3 col-3 p-0">Alerta</label>
+      <select class="rounded col" name="" id="" [(ngModel)]="segunda_alerta" >
+        <option value="">Ninguno</option>
+        <option value='0'>A la hora del evento</option>
+        <option value='5'>5 minutos antes</option>
+        <option value='15'>15 minutos antes</option>
+        <option value='30'>30 minutos antes</option>
+        <option value='60'>1 hora antes</option>
+        <option value='120'>2 horas antes</option>
+        <option value='1440'>1 día antes</option>
+        <option value='2880'>2 días antes</option>
+        <option value='10080'>1 semana antes</option>
+      </select>
+    </div>
+    <div class="row m-0 mb-2">
+      <label class="pr-3 col-3 p-0">Repetir</label>
+      <select class="rounded col" name="" id="" [(ngModel)]="repeat">
+        <option value="">Nunca</option>
+        <option value='0'>Todos los días</option>
+        <option value='5'>Todas las semanas</option>
+        <option value='15'>Cada dos semanas</option>
+        <option value='30'>Cada mes</option>
+        <option value='60'>Cada año</option>
+      </select>
+    </div>
+  </div>
+  <div *ngIf="edit" class="text-center mt-3" data-toggle="modal" data-target="#modalDel">
+    <button class="btn btn_red" style="background:#009688">Eliminar alerta</button>
+  </div>
+</div>
+
+<!-- <app-calendar [dataSubCateg]="dataSubCateg" [idMovi]="idMovi" [data]="data" [type]="type" [alarmSide]="true"
+  (closeCalendarE)="closeCalendar($event)" [alarm]="true" *ngIf="activeCalendar"></app-calendar> -->
+
+<!-- Modal -->
+<div class="modal fade" id="modalDel" tabindex="-1" role="dialog" aria-labelledby="modalDel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+    <div class="modal-content" style="max-width: 20em;">
+      <div class="modal-body">
+        <div class="text-center p-4">
+          ¿Desea eliminar esta alerta?
+        </div>
+        <div class="text-right" style="color:#009688">
+          <span class="p-2 cp" data-dismiss="modal" (click)="delete()">SI</span>
+          <span class="p-2 cp" data-dismiss="modal">NO</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <app-footer></app-footer> -->

@@ -1,0 +1,91 @@
+
+<app-cabecera ></app-cabecera>
+
+
+<div class="text-center">
+  <label class="title">Sus {{ type }} son:</label>
+  <div>
+    <span class="balance" [ngClass]="{'orange': type=='gastos'}" >{{ (type == 'ingresos' ? (balanceData| async).totalIngresos : (balanceData| async).totalGastos)  | currency:lang:'symbol-narrow':'1.0' }}</span>
+  </div>
+</div>
+
+<div class="row m-0 justify-content-center align-items-center border-top" style="border-radius: 5em;">
+  <label class="subTitle p-3 no_h_styles" [ngClass]="{'orange': type=='gastos'}">
+    <h1>
+      Elija y registre sus {{type}}
+    </h1>
+  </label>
+  <i *ngIf="!categories" class="dv-spinner"></i>
+</div>
+
+
+<!-- Categorias -->
+<div class="p-2" >
+  <!-- <div *ngIf="loader" class="row loader align-items-center"></div> -->
+  <div class="row m-0" *ngIf="categories | async as categorias">
+    <div class="col-4 text-center divSub" *ngFor="let subCateg of categorias">
+      <div>
+        <img (click)="action(false,subCateg)" *ngIf="edit===subCateg.id && edit > 15" [src]="generalIcons.trash" width="40" style="position: absolute;margin: -15px;margin-left: -23px">
+        <img width="50" style="cursor: pointer;" [src]="imgParser(subCateg)" alt="" (touchstart)="downPress(subCateg)" (mousedown)="downPress(subCateg)"
+        (touchend)="upPress(subCateg)" (mouseup)="upPress(subCateg)">
+        <img (click)="action(true,subCateg)" *ngIf="edit===subCateg.id && edit > 15" [src]="generalIcons.edit" width="40" style="position: absolute;margin: -15px;">
+      </div>
+      <span class="no_h_styles" >
+        <h3>
+          {{subCateg.nombre}}
+        </h3>
+      </span>
+      <div>
+        <span class="font-weight-bold">{{auxiliars.sacarBalance(subCateg, fecha) | currency:lang:'symbol-narrow':'1.0' }}</span>
+      </div>
+    </div>
+
+    <div routerLink="/presupuesto/{{type}}/agregar-categoria" class="col-4 text-center divSub">
+      <div>
+        <img width="50" src="{{Iconos['circle_add']}}" alt="">
+      </div>
+      <span>Crear categoría</span>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Subcategorias -->
+<div *ngIf="subCategories" class="fixed-top h-100 w-100 d-flex justify-content-center" style="background-color:#000000cf;z-index: 1031;">
+  <div class="col-12 text-right p-0">
+    <img (click)="subCategories = null" alt="" [src]="generalIcons.close" width="45" class="mr-2 mt-2">
+    <div class="row m-0 text-white mt-5 justify-content-center">
+      <label class="col-12 text-center">Seleccione una subcategoría</label>
+      <div class="col-12 col-lg-4" style="overflow: auto;height: 70vh;padding-bottom: 3.5em;">
+        <div *ngFor="let subCateg of subCategories" >
+          <div *ngIf="subCateg.disponible"
+            [class.d-flex]="subCateg.estado==1"
+            [class.d-none]="subCateg.estado==0"
+            class="align-items-center ml-3 mr-3 mt-2 p-2 itemSubCateg"
+            (click)="selectCategory(subCateg)">
+            <img width="50" [src]="imgParser(subCateg)"  alt="">
+            <label>{{ subCateg.nombre }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal DEL -->
+<div class="modal fade" id="modalDelSubCateg" tabindex="-1" role="dialog" aria-labelledby="modalDel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+    <div class="modal-content" style="max-width: 22em;">
+      <div class="modal-body">
+        <div class="text-center p-3">
+          Usted tiene registros en esta categoría.<br>
+          ¿Esta seguro que desea eliminarlo?
+        </div>
+        <div class="text-right" style="color:#009688">
+          <span class="p-2 cp" data-dismiss="modal" (click)="delete()">SI</span>
+          <span class="p-2 cp" data-dismiss="modal">NO</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

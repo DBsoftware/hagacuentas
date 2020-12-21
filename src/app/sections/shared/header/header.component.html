@@ -1,0 +1,922 @@
+<header class="row bg_r m-0 fixed-top">
+  <div class="d-flex col-2 p-1 align-items-center">
+    <img (click)="activeSide()" class="w-100" src="/assets/img/header/side.png" alt="" style="cursor:pointer">
+  </div>
+  <div class="d-flex col align-items-center justify-content-center">
+    <h5 routerLink="/presupuestos" class="_androgyne text-white no_h_styles" style="cursor:pointer">
+      <h1>Haga Cuentas</h1>
+    </h5>
+  </div>
+  <div [class.disableHelp]="!helpIcon" class="d-flex col-2 p-1 align-items-center justify-content-end">
+    <img id="help" (click)="activeHelp()" class="w-100" src="/assets/img/header/help.png" alt="">
+  </div>
+</header>
+
+<div *ngIf="sideBar" class="sideBar d-flex">
+  <div class="back col-8 col-md-3 p-0 h-100" style="overflow: auto;padding-bottom: 10em !important;">
+    <div class="p-2 headI mb-2" data-toggle="collapse" href="#collapsePres">
+      <label class="m-0 pl-3 _androgyne no_h_styles">
+      <h2>
+        Mis presupuestos
+      </h2>
+      </label>
+      <i class="float-right">
+        <img [src]="next" alt="" width="18">
+      </i>
+    </div>
+    <div class="collapse" id="collapsePres">
+      <div class="border-bottom pt-3 pl-3 pb-3">
+        <div *ngFor="let presupuesto of presupuestoList | async">
+          <div class="d-flex align-items-center justify-content-between">
+            <i>
+              <img src="/assets/img/icons/presupuesto.png" alt="" width="35">
+            </i>
+            <div class="m-0 font-weight-bold col cp" (click)="selectPresu(presupuesto)">{{presupuesto.nombre}}</div>
+            <i class="float-right cp collapsed p-3" data-toggle="collapse" [attr.href]="'#collapsePres'+presupuesto.id">
+              <div class="imgItem"></div>
+            </i>
+          </div>
+          <div (click)="activeAlert(presupuesto)" class="addAlert collapse align-items-center"
+            [attr.id]="'collapsePres'+presupuesto.id">
+            <img src="/assets/img/icons/alert_add.png" alt="" style="cursor:pointer;z-index: 1;" width="35">
+            <span class="pl-4" style="cursor:pointer;">Alertas</span>
+          </div>
+        </div>
+      </div>
+      <div id="Crear_otro_presupuesto" routerLink="/presupuestos" class="addPresu p-2 d-flex align-items-center">
+        <img  alt="" src="/assets/img/icons/add_side.png" width="55"
+          style="z-index: 1;cursor:pointer;">
+        <span class="pl-5" style="cursor:pointer;">Crear otro presupuesto</span>
+      </div>
+    </div>
+    <div id="Consejos_financieros" class="p-2 headI mb-2">
+      <label routerLink="/tips-financieros" class="m-0 _androgyne no_h_styles">
+        <h2>
+            Consejos financieros
+        </h2>
+      </label>
+    </div>
+    <div class="p-2 headI mb-2" style="background:#eff0f0;">
+      <label class="m-0 font-weight-bold">Configuración</label>
+    </div>
+    <div id="Exportar" class="p-2 d-flex justify-content-between w-100 collapsed cp" data-toggle="collapse" href="#collapseExp">
+      <div>Exportar</div>
+      <div class="imgItem"></div>
+    </div>
+    <div class="collapse" id="collapseExp">
+      <div class="border-bottom p-3">
+        <div *ngFor="let presu of presupuestos">
+          <div class="d-flex align-items-center justify-content-between" data-toggle="collapse"
+            [attr.href]="'#collapseExp'+presu.id">
+            <i>
+              <img src="/assets/img/icons/presupuesto.png" alt="" width="35">
+            </i>
+            <div class="m-0 font-weight-bold col cp">{{presu.nombre}}</div>
+            <i class="float-right cp collapsed" data-toggle="collapse" [attr.href]="'#collapseExp'+presu.id">
+              <div class="imgItem"></div>
+            </i>
+          </div>
+          <div class="text-center collapse mt-2" [attr.id]="'collapseExp'+presu.id" style="color:#1c9b90">
+            <div id="Exportar_csv" (click)="download(presu.id,'csv')" class="mb-2 p-1 cp" style="background:#e8f5f4">CSV (.csv)</div>
+            <div id="Exportar_excel" (click)="download(presu.id)" class="p-1 cp" style="background:#e8f5f4">Excel (.xls)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="Compartir" class="p-2 d-flex justify-content-between w-100 cp" (click)="share()">
+      <div>Compartir</div>
+      <i class="float-right">
+        <img [src]="next" alt="" width="18">
+      </i>
+    </div>
+    <div id="Terminos_y_condiciones" (click)="open()" class="p-2 d-flex justify-content-between w-100 cp">
+      <div>Términos y Condiciones</div>
+      <i class="float-right">
+        <img [src]="next" alt="" width="18">
+      </i>
+    </div>
+    <div id="Registro" *ngIf="!sessionUs"  (click)="goToregister()"
+      class="p-2 d-flex justify-content-between w-100 cp">
+      <div>Registro</div>
+      <i class="float-right">
+        <img [src]="next" alt="" width="18">
+      </i>
+    </div>
+    <div *ngIf="sessionUs && sessionUs!='anonymous'" class="p-2">
+      <span>{{sessionUs}}</span>
+    </div>
+  </div>
+  <div class="col" (click)="close()"></div>
+</div>
+
+<div class="backMod fixed-top" *ngIf="helpActive" [ngSwitch]="helpActive" [class.zi]="helpActive!='calculator'">
+  <img *ngIf="helpActive!='calculator'" class="position-absolute" (click)="disableHelp()"
+    src="/assets/img/icons/btn_close.png" width="45" style="right:.5em;top:.5em">
+
+    <!--Ayuda calculator-->
+  <div *ngSwitchCase="'calculator'">
+    <div class="text-right">
+      <img class="mt-2 mr-2" (click)="disableHelp()" src="/assets/img/icons/btn_close.png" width="45">
+    </div>
+    <div class="d-flex justify-content-center">
+      <div class="w-100" style="max-width:50em">
+        <div class="row m-0 justify-content-center">
+          <div class="divMod text-center p-3" style="max-width:15em;" [ngSwitch]="slideActive">
+            <div *ngSwitchCase="0">
+              <img src="/assets/img/icons/slide_on.png" alt="" width="120">
+              <div class="mb-2">
+                <h5 class="font-weight-bold">Fijo</h5>
+              </div>
+              <div>
+                <span>Al activar esta opción, este {{typeHelp}} se registrará automáticamente todos los meses.</span>
+              </div>
+            </div>
+            <div *ngSwitchCase="1">
+              <img src="/assets/img/icons/alert_on.png" alt="" width="50">
+              <div class="mb-2">
+                <h5 class="font-weight-bold">Alerta</h5>
+              </div>
+              <div>
+                <span>Esta opción le permite contar con un recordatorio para un {{typeHelp}} futuro.</span>
+              </div>
+            </div>
+            <div *ngSwitchCase="2">
+              <img src="/assets/img/icons/calendar_on.png" alt="" width="55">
+              <div class="mb-2">
+                <h5 class="font-weight-bold">Fecha</h5>
+              </div>
+              <div>
+                <span>Active esta opción para modificar la fecha del {{typeHelp}}.<br>
+                  En caso de no hacerlo se registrará en la fecha actual.</span>
+              </div>
+            </div>
+            <div *ngSwitchCase="3">
+              <img src="/assets/img/icons/note_on.png" alt="" width="75">
+              <div class="mb-2">
+                <h5 class="font-weight-bold">Nota</h5>
+              </div>
+              <div>
+                <span>Está opción permite registrar detalles u observaciones para sus {{typeHelp}}.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center mt-3 mb-2">
+          <div class="item" (click)="slideActive=0" [ngClass]="{'red': slideActive==0}"></div>
+          <div class="item" (click)="slideActive=1" [ngClass]="{'red': slideActive==1}"></div>
+          <div class="item" (click)="slideActive=2" [ngClass]="{'red': slideActive==2}"></div>
+          <div class="item" (click)="slideActive=3" [ngClass]="{'red': slideActive==3}"></div>
+        </div>
+
+        <div class="row m-0 pt-2 pb-3 mt-4">
+          <div class="col p-0 text-center" [ngClass]="{'disabled': slideActive!=0}">
+            <div>
+              <img alt="" src="/assets/img/icons/slide_on_mini.png" width="90" height="50">
+            </div>
+            <div class="text-center text-white" style="line-height:1">
+              <label for="fijo">Fijo</label>
+            </div>
+          </div>
+          <div class="col p-0" [ngClass]="{'disabled': slideActive!=1}">
+            <div class="d-flex justify-content-center">
+              <div>
+                <img alt="" src="/assets/img/icons/alert_on_mini.png" width="50">
+              </div>
+            </div>
+            <div class="text-center text-white" style="line-height:1">
+              <label>Alerta</label>
+            </div>
+          </div>
+          <div class="col p-0" [ngClass]="{'disabled': slideActive!=2}">
+            <div class="d-flex justify-content-center">
+              <div>
+                <img alt="" src="/assets/img/icons/calendar_on_mini.png" width="52">
+              </div>
+            </div>
+            <div class="text-center text-white" style="line-height:1">
+              <label>Fecha</label>
+            </div>
+          </div>
+          <div class="col p-0" [ngClass]="{'disabled': slideActive!=3}">
+            <div class="d-flex justify-content-center">
+              <div>
+                <img alt="" src="/assets/img/icons/note_on_mini.png" width="50">
+              </div>
+            </div>
+            <div class="text-center text-white" style="line-height:1">
+              <label>Nota</label>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+          <button (click)="nextSlide(3)" class="btn rounded-1_5 bg_red text-white" style="width:12em">
+            {{ slideActive==3? 'Continuar' : 'Siguiente' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Ayuda Presupuesto-->
+  <div *ngSwitchCase="'presupuesto'" class="h-100">
+    <div class="d-flex justify-content-center align-items-center align-items-lg-start h-100 mt-0 mt59" style="padding-bottom: 73px;"
+    [ngClass]="{'imgtop': slideActive==2}">
+      <div class="w-100" style="max-width:50em">
+
+        <!--imagenes flotantes top-->
+        <div class="d-flex justify-content-center mb-4">
+          <div *ngIf="slideActive == 2" class="w-100 col col-lg-6 p-0">
+            <div class="col p-0 text-center h-100">
+              <img class="w-100 h-auto" src="/assets/img/help/presupuesto_img3.png" alt="imagen de ayuda - balance">
+            </div>
+          </div>
+        </div>
+
+        <!--contenido texto-->
+        <div class="row m-0 justify-content-center position-relative">
+          <div class="d-flex divMod text-center m-0 p-3 align-items-center h-auto" style="max-width:18em;width: 18em;" [ngSwitch]="slideActive">
+            <div *ngSwitchCase="0">
+              <div class="text-center">
+                Los ingresos pueden provenir de diferentes fuentes tales como salarios, comisiones u otros.<br>
+                Registrelos aquí.
+              </div>
+            </div>
+            <div *ngSwitchCase="1">
+              <div class="text-center">
+                Existen diferentes categorías de gasto como vivienda, transporte, etc.<br>
+                Registrelos aquí.
+              </div>
+            </div>
+            <div *ngSwitchCase="2">
+              <div class="text-center">
+                Un buen manejo de las finanzas, tiene como resultado un balance positivo. Sus ingresos deben ser mayores a sus gastos.
+              </div>
+            </div>
+          </div>
+          <div class="h-100 position-absolute d-flex justify-content-between align-items-center" style="max-width: 24em; width: 24em">
+            <img src="/assets/img/help/izq_{{ slideActive==0? 'G' : 'R' }}.png" (click)="backSlide(0)" alt="icono flecha izq">
+            <img src="/assets/img/help/der_{{ slideActive==2? 'G' : 'R' }}.png" (click)="nextSlide(2,true)" alt="icono flecha der">
+          </div>
+        </div>
+
+        <!--iconos owl dots-->
+        <div class="d-flex justify-content-center mt-4 mb-2">
+          <div class="item" (click)="slideActive=0" [ngClass]="{'red': slideActive==0}"></div>
+          <div class="item" (click)="slideActive=1" [ngClass]="{'red': slideActive==1}"></div>
+          <div class="item" (click)="slideActive=2" [ngClass]="{'red': slideActive==2}"></div>
+        </div>
+
+        <!--imagenes flotantes-->
+        <div class="d-flex justify-content-center mt-4 mb-2">
+          <div *ngIf="slideActive == 0" class="w-100 col col-lg-9 p-0">
+            <div class="circle col-6 p-0">
+              <img class="w-100" src="/assets/img/help/presupuesto_img1.png" alt="imagen de ayuda - ingresos">
+            </div>
+          </div>
+          <div *ngIf="slideActive == 1" class="w-100 col col-lg-9 p-0">
+            <div class="circle col-6 p-0 ml-auto">
+              <img class="w-100" src="/assets/img/help/presupuesto_img2.png" alt="imagen de ayuda - gastos">
+            </div>
+          </div>
+        </div>
+
+        <!--boton siguiente-->
+        <div *ngIf="slideActive == 2" class="text-center">
+          <button (click)="nextSlide(2)" class="btn rounded-1_5 bg_red text-white" style="width:8em">
+            Siguiente
+          </button>
+        </div>
+
+      </div>
+      <!--imagenes Footer-->
+      <div class="w-100 position-absolute iconosFooter">
+          <div *ngIf="slideActive == 0" class="col-3 offset-3 p-2 pt-3 text-center">
+              <img src="/assets/img/Footer/icono2_2.png" alt="icono de ingresos">
+              <label>Ingresos</label>
+          </div>
+          <div *ngIf="slideActive == 1" class="col-3 offset-6 p-2 pt-3 text-center">
+              <img src="/assets/img/Footer/icono3_2.png" alt="icono de gastos">
+              <label>Gastos</label>
+          </div>
+          <div *ngIf="slideActive == 2" class="col-3 p-2 pt-3 text-center">
+              <img src="/assets/img/Footer/icono1_2.png" alt="icono de presupuesto">
+              <label>Presupuesto</label>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Ayuda Ingresos-->
+  <div *ngSwitchCase="'ingresos'" class="h-100">
+    <div class="d-flex justify-content-center align-items-center align-items-lg-start h-100 mt-0 mt59" style="padding-bottom: 73px;"
+    [ngClass]="{'imgtop': slideActive==0 || slideActive==3}">
+      <div class="w-100" style="max-width:50em">
+
+        <!--imagenes flotantes top-->
+        <div class="d-flex justify-content-center mb-4 h-auto">
+          <div *ngIf="slideActive == 0" class="w-100 col p-0">
+            <div class="col p-0 h-100" style="margin-bottom: 5em;">
+              <img style="height: 60px"src="/assets/img/help/iconoMes.png" alt="imagen de calendario">
+            </div>
+          </div>
+          <div *ngIf="slideActive == 3" class="w-100 col p-0">
+            <div class="col p-0 h-100 text-center">
+              <img style="height: 6em; margin-top: 3em;"src="/assets/img/help/ingresos1_2.png" alt="imagen de ingresos">
+            </div>
+          </div>
+        </div>
+
+        <!--contenido texto-->
+        <div class="row m-0 justify-content-center position-relative">
+          <div class="d-flex divMod text-center m-0 p-3 align-items-center h-auto" style="max-width:18em;width: 18em;" [ngSwitch]="slideActive">
+
+            <div *ngSwitchCase="0">
+              <div class="text-center">
+                El presupuesto se lleva de forma mensual. Seleccione el mes que desea consultar.
+              </div>
+            </div>
+
+            <div *ngSwitchCase="1">
+              <div class="text-center">
+                  Para registrar sus ingresos seleccione el icono que más se ajuste o cree uno nuevo.
+              </div>
+            </div>
+
+            <div *ngSwitchCase="2">
+              <div class="text-center">
+                  Mantenga presionado el icono de la categoría creada para editarla o borrarla.
+              </div>
+            </div>
+
+            <div *ngSwitchCase="3">
+              <div class="text-center">
+                  Aquí podrá visualizar el total de ingresos registrados en el mes.
+              </div>
+            </div>
+
+          </div>
+          <div class="h-100 position-absolute d-flex justify-content-between align-items-center" style="max-width: 24em; width: 24em">
+            <img src="/assets/img/help/izq_{{ slideActive==0? 'G' : 'R' }}.png" (click)="backSlide(0)" alt="icono flecha izq">
+            <img src="/assets/img/help/der_{{ slideActive==3? 'G' : 'R' }}.png" (click)="nextSlide(3,true)" alt="icono flecha der">
+          </div>
+        </div>
+
+        <!--iconos owl dots-->
+        <div class="d-flex justify-content-center mt-4 mb-2">
+          <div class="item" (click)="slideActive=0" [ngClass]="{'red': slideActive==0}"></div>
+          <div class="item" (click)="slideActive=1" [ngClass]="{'red': slideActive==1}"></div>
+          <div class="item" (click)="slideActive=2" [ngClass]="{'red': slideActive==2}"></div>
+          <div class="item" (click)="slideActive=3" [ngClass]="{'red': slideActive==3}"></div>
+        </div>
+
+        <!--imagenes flotantes-->
+        <div class="d-flex justify-content-center mt-4 mb-2">
+          <div *ngIf="slideActive == 1" class="w-100 col col-lg-8 p-0">
+            <div class="col p-0">
+              <img class="w-100" src="/assets/img/help/ingresos_img1.png" alt="imagen de ayuda - ingresos">
+            </div>
+          </div>
+          <div *ngIf="slideActive == 2" class="w-100 col col-lg-8 p-0">
+            <div class="col p-0 position-relative">
+              <img class="w-100" src="/assets/img/help/ingresos_img2.png" alt="imagen de ayuda - ingresos">
+              <img class="position-absolute" style="height: 15%; bottom: 38%; right: 17%;" src="/assets/img/icons/icono_eliminar.png" alt="icono eliminar">
+              <img class="position-absolute" style="height: 15%; bottom: 38%; right: 5%;" src="/assets/img/icons/icono_editar.png" alt="imagen editar">
+
+            </div>
+          </div>
+        </div>
+
+        <!--boton siguiente-->
+        <div *ngIf="slideActive == 3" class="text-center">
+          <button (click)="nextSlide(3)" class="btn rounded-1_5 bg_red text-white" style="width:8em">
+            Siguiente
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!--Ayuda Gastos-->
+  <div *ngSwitchCase="'gastos'" class="h-100">
+    <div class="d-flex justify-content-center align-items-center align-items-lg-start h-100 mt-0 mt59" style="padding-bottom: 73px;"
+    [ngClass]="{'imgtop': slideActive==0 || slideActive==3}">
+      <div class="w-100" style="max-width:50em">
+
+        <!--imagenes flotantes top-->
+        <div class="d-flex justify-content-center mb-4 h-auto">
+          <div *ngIf="slideActive == 0" class="w-100 col p-0">
+            <div class="col p-0 h-100" style="margin-bottom: 5em;">
+              <img style="height: 60px"src="/assets/img/help/iconoMes.png" alt="imagen de calendario">
+            </div>
+          </div>
+          <div *ngIf="slideActive == 3" class="w-100 col p-0">
+            <div class="col p-0 h-100 text-center">
+              <img style="height: 6em; margin-top: 3em;"src="/assets/img/help/gastos1_2.png" alt="imagen de gastos">
+            </div>
+          </div>
+        </div>
+
+        <!--contenido texto-->
+        <div class="row m-0 justify-content-center position-relative">
+          <div class="d-flex divMod text-center m-0 p-3 align-items-center h-auto" style="max-width:18em;width: 18em;" [ngSwitch]="slideActive">
+
+            <div *ngSwitchCase="0">
+              <div class="text-center">
+                  Elija y registre sus gastos. Seleccione el mes que desea consultar.
+              </div>
+            </div>
+
+            <div *ngSwitchCase="1">
+              <div class="text-center">
+                  Seleccione el icono que más se ajuste o cree una nueva categoría y subcategoría.
+              </div>
+            </div>
+
+            <div *ngSwitchCase="2">
+              <div class="text-center">
+                  Mantenga presionado el icono de la categoría creada para editarla o borrarla.
+              </div>
+            </div>
+
+            <div *ngSwitchCase="3">
+              <div class="text-center">
+                  Aquí podrá visualizar el total de gastos registrados en el mes.
+              </div>
+            </div>
+
+          </div>
+          <div class="h-100 position-absolute d-flex justify-content-between align-items-center" style="max-width: 24em; width: 24em">
+            <img src="/assets/img/help/izq_{{ slideActive==0? 'G' : 'R' }}.png" (click)="backSlide(0)" alt="icono flecha izq">
+            <img src="/assets/img/help/der_{{ slideActive==3? 'G' : 'R' }}.png" (click)="nextSlide(3,true)" alt="icono flecha der">
+          </div>
+        </div>
+
+        <!--iconos owl dots-->
+        <div class="d-flex justify-content-center mt-4 mb-2">
+          <div class="item" (click)="slideActive=0" [ngClass]="{'red': slideActive==0}"></div>
+          <div class="item" (click)="slideActive=1" [ngClass]="{'red': slideActive==1}"></div>
+          <div class="item" (click)="slideActive=2" [ngClass]="{'red': slideActive==2}"></div>
+          <div class="item" (click)="slideActive=3" [ngClass]="{'red': slideActive==3}"></div>
+        </div>
+
+        <!--imagenes flotantes-->
+        <div class="d-flex justify-content-center mt-4 mb-2">
+          <div *ngIf="slideActive == 1" class="w-100 col col-lg-8 p-0">
+            <div class="col p-0">
+              <img class="w-100" src="/assets/img/help/gastos_img1.png" alt="imagen de ayuda - gastos">
+            </div>
+          </div>
+          <div *ngIf="slideActive == 2" class="w-100 col col-lg-8 p-0">
+            <div class="col p-0 position-relative">
+              <img class="w-100" src="/assets/img/help/gastos_img2.png" alt="imagen de ayuda - gastos">
+              <img class="position-absolute" style="height: 15%; bottom: 31%; right: 16%;" src="/assets/img/icons/icono_eliminar.png" alt="icono eliminar">
+              <img class="position-absolute" style="height: 15%; bottom: 31%; right: 4%;" src="/assets/img/icons/icono_editar.png" alt="imagen editar">
+
+            </div>
+          </div>
+        </div>
+
+        <!--boton siguiente-->
+        <div *ngIf="slideActive == 3" class="text-center">
+          <button (click)="nextSlide(3)" class="btn rounded-1_5 bg_red text-white" style="width:8em">
+            Siguiente
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!--Ayuda Estadisticas-->
+  <div *ngSwitchCase="'estadisticas'" class="h-100">
+    <div class="d-flex justify-content-center align-items-lg-start h-100" style="padding-bottom: 73px; margin-top: 11em;">
+      <div class="w-100" style="max-width:50em">
+
+        <!--imagenes flotantes top-->
+        <div class="d-flex justify-content-center" style="margin-bottom: 1.5em">
+
+          <div *ngIf="slideActive == 0" class="w-100 col col-lg-6 p-0" style="max-height: 55px;">
+            <div class="col-5 p-0 text-center h-100">
+              <img class="h-auto w-100 mh-100" src="/assets/img/help/resumen1_2.png" alt="imagen de ayuda - resumen">
+            </div>
+          </div>
+
+          <div *ngIf="slideActive == 1" class="w-100 col col-lg-6 p-0" style="max-height: 55px;">
+            <div class="col-3 offset-5 p-0 text-center h-100">
+              <img class="h-auto w-100 mh-100" src="/assets/img/help/resumen2_2.png" alt="imagen de ayuda - resumen">
+            </div>
+          </div>
+
+          <div *ngIf="slideActive == 2" class="w-100 col col-lg-6 p-0" style="max-height: 55px;">
+            <div class="col-3 offset-7 p-0 text-center h-100">
+              <img class="h-auto w-100 mh-100" src="/assets/img/help/resumen3_2.png" alt="imagen de ayuda - resumen">
+            </div>
+          </div>
+
+          <div *ngIf="slideActive == 3" class="w-100 col col-lg-6 p-0" style="max-height: 55px;">
+            <div class="col-3 ml-auto p-0 text-center h-100">
+              <img class="h-auto w-100 mh-100" src="/assets/img/help/resumen4_2.png" alt="imagen de ayuda - resumen">
+            </div>
+          </div>
+
+        </div>
+
+        <!--contenido texto-->
+        <div class="row m-0 justify-content-center position-relative">
+          <div class="d-flex divMod text-center m-0 p-3 align-items-center" style="max-width:18em;width: 18em; height: 14em;" [ngSwitch]="slideActive">
+
+            <div *ngSwitchCase="0" class="row m-0 w-100 justify-content-center h-100">
+              <div>
+                <img class="mmt-3" src="/assets/img/help/resumen1.png" alt="" width="180">
+              </div>
+              <div class="text-center mt-3 w-75">
+                  Ingrese aquí para ver el resumen de su presupuesto mensual.
+              </div>
+            </div>
+
+            <div *ngSwitchCase="1" class="row m-0 w-100 justify-content-center h-100">
+              <div>
+                <img class="mmt-3" src="/assets/img/help/resumen2.png" alt="" width="180">
+              </div>
+              <div class="text-center mt-3">
+                  Aquí podrá visualizar sus gastos por categorías y cuál es su participación en el total.<br>
+                  Identifique los que más afectan su presupuesto.
+              </div>
+            </div>
+
+            <div *ngSwitchCase="2" class="row m-0 w-100 justify-content-center h-100">
+              <div>
+                <img class="mmt-3" src="/assets/img/help/resumen3.png" alt="" width="180">
+              </div>
+              <div class="text-center mt-3">
+                  Aquí podrá modificar los ingresos y gastos existentes.
+              </div>
+            </div>
+
+            <div *ngSwitchCase="3" class="row m-0 w-100 justify-content-center h-100">
+              <div>
+                <img class="mmt-3" src="/assets/img/help/resumen4.png" alt="" width="180">
+              </div>
+              <div class="text-center mt-3">
+                  Visualizar el comportamiento de los últimos meses le permitirá identificar oportunidades de ahorro.
+              </div>
+            </div>
+
+          </div>
+
+          <div class="h-100 position-absolute d-flex justify-content-between align-items-center" style="max-width: 24em; width: 24em">
+            <img src="/assets/img/help/izq_{{ slideActive==0? 'G' : 'R' }}.png" (click)="backSlide(0)" alt="icono flecha izq">
+            <img src="/assets/img/help/der_{{ slideActive==3? 'G' : 'R' }}.png" (click)="nextSlide(3,true)" alt="icono flecha der">
+          </div>
+        </div>
+
+        <!--iconos owl dots-->
+        <div class="d-flex justify-content-center mt-4 mb-2">
+          <div class="item" (click)="slideActive=0" [ngClass]="{'red': slideActive==0}"></div>
+          <div class="item" (click)="slideActive=1" [ngClass]="{'red': slideActive==1}"></div>
+          <div class="item" (click)="slideActive=2" [ngClass]="{'red': slideActive==2}"></div>
+          <div class="item" (click)="slideActive=3" [ngClass]="{'red': slideActive==3}"></div>
+        </div>
+
+        <!--boton siguiente-->
+        <div *ngIf="slideActive == 3" class="text-center">
+          <button (click)="nextSlide(3)" class="btn rounded-1_5 bg_red text-white" style="width:8em">
+            Siguiente
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div *ngSwitchCase="'tips'" class="h-100">
+    <div class="d-flex justify-content-center align-items-center h-100">
+      <div class="w-100" style="max-width:50em">
+        <div class="row m-0 justify-content-center">
+          <div class="d-flex divMod text-center m-0 p-3 align-items-center" style="max-width:18em;height: 15em;width: 18em;" [ngSwitch]="slideActive">
+            <div *ngSwitchCase="0" class="row m-0 w-100 justify-content-center">
+              <div>
+                <img class="mmt-3" src="/assets/img/help/tips1.png" alt="" width="260">
+              </div>
+              <div class="text-center mt-3 w-75">
+                Escriba aquí una<br> palabra clave
+              </div>
+            </div>
+            <div *ngSwitchCase="1" class="row m-0 w-100 justify-content-center">
+              <div>
+                <img class="mmt-3" src="/assets/img/help/tips2.png" alt="" width="250">
+              </div>
+              <div class="text-center mt-3">
+                Seleccione una categoría<br> para explorar los diferentes<br> consejos financieros
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center mt-4 mb-2">
+          <div class="item" (click)="slideActive=0" [ngClass]="{'red': slideActive==0}"></div>
+          <div class="item" (click)="slideActive=1" [ngClass]="{'red': slideActive==1}"></div>
+        </div>
+        <div class="text-center mt-5">
+          <button (click)="nextSlide(1)" class="btn rounded-1_5 bg_red text-white" style="width:8em">
+            {{ slideActive==1? 'Continuar' : 'Siguiente' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Ayuda CategoriaAdd-->
+  <div *ngSwitchCase="'categoria'" class="h-100">
+    <div class="d-flex justify-content-center align-items-center h-100" [ngClass]="{'imgtop': slideActive==0}">
+      <div class="w-100" style="max-width:50em">
+
+        <!--imagenes flotantes top-->
+        <div class="d-flex justify-content-center mb-4 h-100">
+          <div *ngIf="slideActive == 0" class="w-100 col p-0" style="margin-top: 9em;">
+            <div class="col p-0 text-center h-100">
+              <img class="w-100 h-auto d-lg-none" src="/assets/img/help/categoria1_2.png" alt="imagen de ayuda - categorias">
+              <img class="w-100 h-auto d-none d-lg-inline" src="/assets/img/help/categoria1_2W.png" alt="imagen de ayuda - categorias">
+            </div>
+          </div>
+        </div>
+
+        <!--contenido texto-->
+        <div class="row m-0 justify-content-center position-relative">
+          <div class="d-flex divMod text-center m-0 p-3 align-items-center h-auto" style="max-width:18em;width: 18em;" [ngSwitch]="slideActive">
+            <div *ngSwitchCase="0" class="row m-0 w-100 justify-content-center">
+              <div class="text-center my-3">
+                Escriba el nombre<br> de la categoría
+              </div>
+            </div>
+
+            <div *ngSwitchCase="1" class="row m-0 w-100 justify-content-center">
+              <div class="text-center my-3">
+                  Seleccione un icono<br> para la categoría
+              </div>
+            </div>
+          </div>
+
+          <div class="h-100 position-absolute d-flex justify-content-between align-items-center" style="max-width: 24em; width: 24em">
+            <img src="/assets/img/help/izq_{{ slideActive==0? 'G' : 'R' }}.png" (click)="backSlide(0)" alt="icono flecha izq">
+            <img src="/assets/img/help/der_{{ slideActive==1? 'G' : 'R' }}.png" (click)="nextSlide(1,true)" alt="icono flecha der">
+          </div>
+        </div>
+
+        <!--iconos owl dots-->
+        <div class="d-flex justify-content-center mt-4 mb-2">
+          <div class="item" (click)="slideActive=0" [ngClass]="{'red': slideActive==0}"></div>
+          <div class="item" (click)="slideActive=1" [ngClass]="{'red': slideActive==1}"></div>
+        </div>
+
+        <!--imagenes flotantes-->
+        <div class="d-flex justify-content-center mt-4 mb-2">
+          <div *ngIf="slideActive == 1" class="w-100 col col-lg-9 p-4">
+            <div class="col p-0">
+              <img class="w-100 d-lg-none" src="/assets/img/help/categoria2_2.png" alt="imagen de ayuda - categorias">
+              <img class="w-100 d-none d-lg-inline" src="/assets/img/help/categoria2_2W.png" alt="imagen de ayuda - categorias">
+            </div>
+          </div>
+        </div>
+
+        <!--boton siguiente-->
+        <div *ngIf="slideActive == 1" class="text-center">
+          <button (click)="nextSlide(1)" class="btn rounded-1_5 bg_red text-white" style="width:8em">
+            Siguiente
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!--Ayuda SubcategoriaAdd-->
+  <div *ngSwitchCase="'subcategoria'" class="h-100">
+      <div class="d-flex justify-content-center align-items-center h-100" [ngClass]="{'imgtop': slideActive==0}">
+        <div class="w-100" style="max-width:50em">
+
+          <!--imagenes flotantes top-->
+          <div class="d-flex justify-content-center mb-4 h-100">
+            <div *ngIf="slideActive == 0" class="w-100 col p-0" style="margin-top: 10.5em;">
+              <div class="col p-0 text-center h-100">
+                <img class="w-100 h-auto d-lg-none" src="/assets/img/help/subcategoria1_2.png" alt="imagen de ayuda - subcategoria">
+                <img class="w-100 h-auto d-none d-lg-inline" src="/assets/img/help/subcategoria1_2W.png" alt="imagen de ayuda - subcategoria">
+              </div>
+            </div>
+          </div>
+
+          <!--contenido texto-->
+          <div class="row m-0 justify-content-center position-relative">
+            <div class="d-flex divMod text-center m-0 p-3 align-items-center h-auto" style="max-width:18em;width: 18em;" [ngSwitch]="slideActive">
+              <div *ngSwitchCase="0" class="row m-0 w-100 justify-content-center">
+                <div class="text-center my-3">
+                  Escriba el nombre<br> de la subcategoría
+                </div>
+              </div>
+
+              <div *ngSwitchCase="1" class="row m-0 w-100 justify-content-center">
+                <div class="text-center my-3">
+                    Seleccione un icono<br> para la subcategoría
+                </div>
+              </div>
+            </div>
+
+            <div class="h-100 position-absolute d-flex justify-content-between align-items-center" style="max-width: 24em; width: 24em">
+              <img src="/assets/img/help/izq_{{ slideActive==0? 'G' : 'R' }}.png" (click)="backSlide(0)" alt="icono flecha izq">
+              <img src="/assets/img/help/der_{{ slideActive==1? 'G' : 'R' }}.png" (click)="nextSlide(1,true)" alt="icono flecha der">
+            </div>
+          </div>
+
+          <!--iconos owl dots-->
+          <div class="d-flex justify-content-center mt-4 mb-2">
+            <div class="item" (click)="slideActive=0" [ngClass]="{'red': slideActive==0}"></div>
+            <div class="item" (click)="slideActive=1" [ngClass]="{'red': slideActive==1}"></div>
+          </div>
+
+          <!--imagenes flotantes-->
+          <div class="d-flex justify-content-center mt-4 mb-2">
+            <div *ngIf="slideActive == 1" class="w-100 col col-lg-9 p-4">
+              <div class="col p-0">
+                <img class="w-100 d-lg-none" src="/assets/img/help/subcategoria2_2.png" alt="imagen de ayuda - subcategoria">
+                <img class="w-100 d-none d-lg-inline" src="/assets/img/help/subcategoria2_2W.png" alt="imagen de ayuda - subcategoria">
+              </div>
+            </div>
+          </div>
+
+          <!--boton siguiente-->
+          <div *ngIf="slideActive == 1" class="text-center">
+            <button (click)="nextSlide(1)" class="btn rounded-1_5 bg_red text-white" style="width:8em">
+              Siguiente
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  <div *ngSwitchCase="'newsubcategoria'" class="h-100">
+    <div class="d-flex justify-content-center align-items-center h-100">
+      <div class="w-100" style="max-width:50em">
+        <div class="row m-0 justify-content-center">
+          <div class="d-flex divMod text-center m-0 p-3 align-items-center" style="max-width:18em;height: 15em;width: 18em;" [ngSwitch]="slideActive">
+            <div *ngSwitchCase="0" class="row m-0 w-100 justify-content-center">
+              <div>
+                <img class="mmt-3" src="/assets/img/help/newsubcategoria.png" alt="" width="100">
+              </div>
+              <div class="text-center mt-3 w-75">
+                Crear otra subcategoría
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center mt-4 mb-2">
+          <div class="item" (click)="slideActive=0" [ngClass]="{'red': slideActive==0}"></div>
+        </div>
+        <div class="text-center mt-5">
+          <button (click)="nextSlide(0)" class="btn rounded-1_5 bg_red text-white" style="width:8em">
+            {{ slideActive==0? 'Continuar' : 'Siguiente' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Ayuda Alerts-->
+  <div *ngSwitchCase="'alerta'" class="h-100">
+    <div class="d-flex justify-content-center align-items-center align-items-lg-start h-100 mt-0 mt59 imgtop" style="padding-bottom: 73px;">
+      <div class="w-100" style="max-width:50em">
+
+        <!--imagenes flotantes top-->
+        <div class="d-flex justify-content-center mb-4 h-auto">
+          <div *ngIf="slideActive == 0" class="w-100 col p-0">
+            <div class="col p-0 h-100">
+              <img style="height: 60px; margin-bottom: 59px;"src="/assets/img/help/iconoMes.png" alt="imagen de calendario">
+            </div>
+          </div>
+
+          <div *ngIf="slideActive == 1" class="w-100 col p-0">
+            <div class="col p-0 text-right h-100" style="margin-top: 59px;">
+              <img style="height: 50px;" src="/assets/img/help/add.png" alt="imagen de ayuda - add">
+            </div>
+          </div>
+        </div>
+
+        <!--contenido texto-->
+        <div class="row m-0 justify-content-center position-relative">
+          <div class="d-flex divMod text-center m-0 p-3 align-items-center h-auto" style="max-width:18em; width: 18em;" [ngSwitch]="slideActive">
+
+            <div *ngSwitchCase="0" class="row m-0 w-100 justify-content-center">
+              <div class="text-center my-3">
+                  Para visualizar las alertas registradas anteriormente, seleccione un mes.
+              </div>
+            </div>
+
+            <div *ngSwitchCase="1" class="row m-0 w-100 justify-content-center">
+              <div class="text-center my-3">
+                  Aquí podrá crear y modificar las alertas.
+              </div>
+            </div>
+
+          </div>
+          <div class="h-100 position-absolute d-flex justify-content-between align-items-center" style="max-width: 24em; width: 24em">
+            <img src="/assets/img/help/izq_{{ slideActive==0? 'G' : 'R' }}.png" (click)="backSlide(0)" alt="icono flecha izq">
+            <img src="/assets/img/help/der_{{ slideActive==1? 'G' : 'R' }}.png" (click)="nextSlide(1,true)" alt="icono flecha der">
+          </div>
+        </div>
+
+        <!--iconos owl dots-->
+        <div class="d-flex justify-content-center mt-4 mb-2">
+          <div class="item" (click)="slideActive=0" [ngClass]="{'red': slideActive==0}"></div>
+          <div class="item" (click)="slideActive=1" [ngClass]="{'red': slideActive==1}"></div>
+        </div>
+
+        <!--boton siguiente-->
+        <div *ngIf="slideActive == 1" class="text-center">
+          <button (click)="nextSlide(1)" class="btn rounded-1_5 bg_red text-white" style="width:8em">
+            Siguiente
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!--Ayuda AlertsAdd-->
+  <div *ngSwitchCase="'crearAlerta'" class="h-100">
+    <div class="d-flex justify-content-center align-items-center h-100 mt-0 mt59" style="padding-bottom: 73px;">
+      <div class="w-100" style="max-width:50em">
+
+        <!--imagenes flotantes top-->
+        <div class="d-flex justify-content-center mb-4">
+          <div *ngIf="slideActive == 3" class="w-100 col col-lg-5 p-0 position-absolute" style="top: 115px">
+            <div class="col p-0 text-right h-100">
+              <img style="height: 40px;" src="/assets/img/help/alerta1_2.png" alt="imagen de ayuda - alerta">
+            </div>
+          </div>
+        </div>
+
+        <!--contenido texto-->
+        <div class="row m-0 justify-content-center position-relative">
+          <div class="d-flex divMod text-center m-0 p-3 align-items-center" style="max-width:18em;height: 15em;width: 18em;" [ngSwitch]="slideActive" [ngClass]="{'h-auto': slideActive==3}">
+
+            <div *ngSwitchCase="0" class="row m-0 w-100 justify-content-center">
+              <div>
+                <img class="mmt-3" src="/assets/img/help/alerta2.png" alt="" width="280">
+              </div>
+              <div class="text-center mt-3">
+                De un nombre a su alerta<br> y agregue una<br> descripción si lo desea
+              </div>
+            </div>
+
+            <div *ngSwitchCase="1" class="row m-0 w-100 justify-content-center">
+              <div>
+                <img class="mmt-3" src="/assets/img/help/alerta3.png" alt="" width="220">
+              </div>
+              <div class="text-center mt-3">
+                Elija la fecha y la hora en<br> la que desea su alerta
+              </div>
+            </div>
+
+            <div *ngSwitchCase="2" class="row m-0 w-100 justify-content-center">
+              <div>
+                <img class="mmt-3" src="/assets/img/help/alerta4.png" alt="" width="280">
+              </div>
+              <div class="text-center mt-3">
+                Active una repetición de<br> la alerta si lo desea
+              </div>
+            </div>
+
+            <div *ngSwitchCase="3" class="row m-0 w-100 justify-content-center">
+              <div class="text-center my-3 w-75">
+                Confirmar alerta
+              </div>
+            </div>
+
+          </div>
+          <div class="h-100 position-absolute d-flex justify-content-between align-items-center" style="max-width: 24em; width: 24em">
+            <img src="/assets/img/help/izq_{{ slideActive==0? 'G' : 'R' }}.png" (click)="backSlide(0)" alt="icono flecha izq">
+            <img src="/assets/img/help/der_{{ slideActive==3? 'G' : 'R' }}.png" (click)="nextSlide(3,true)" alt="icono flecha der">
+          </div>
+        </div>
+
+        <!--iconos owl dots-->
+        <div class="d-flex justify-content-center mt-4 mb-2">
+          <div class="item" (click)="slideActive=0" [ngClass]="{'red': slideActive==0}"></div>
+          <div class="item" (click)="slideActive=1" [ngClass]="{'red': slideActive==1}"></div>
+          <div class="item" (click)="slideActive=2" [ngClass]="{'red': slideActive==2}"></div>
+          <div class="item" (click)="slideActive=3" [ngClass]="{'red': slideActive==3}"></div>
+        </div>
+
+        <!--boton siguiente-->
+        <div *ngIf="slideActive == 3" class="text-center">
+          <button (click)="nextSlide(3)" class="btn rounded-1_5 bg_red text-white" style="width:8em">
+            Siguiente
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+  <social-buttons></social-buttons>

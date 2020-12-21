@@ -1,0 +1,40 @@
+<div class="m-5 m-lg-2">
+  <label class="mb-3 txt_g">Ingrese sus datos para iniciar sesión</label>
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()" >
+    <div class="inputForm my-3 position-relative">
+      <i><img src="/assets/img/icons/email.png" alt=""> </i>
+      <input formControlName="correo" id="email" name="email" type="email" placeholder="Correo electrónico">
+      <div class="invalid-feedback d-inline-block position-absolute feedback-position"  *ngIf="(myForm.get('correo').hasError('required') || myForm.controls.correo.hasError('pattern')) && myForm.get('clave').touched">
+          Por favor introducir un correo válido 
+      </div>
+    </div>
+    <div class="inputForm my-4 position-relative">
+      <i><img src="/assets/img/icons/pass.png" alt=""></i>
+      <input formControlName="clave" id="pass" name="clave" type="password" placeholder="Contraseña" autocomplete="false">
+      <div class="invalid-feedback d-inline-block position-absolute feedback-position"  *ngIf="myForm.get('clave').hasError('required') && myForm.get('clave').touched">
+          La contraseña es requerida
+      </div>
+    </div>
+    <div class="formLog mb-3">
+      <input type="checkbox" name="rememberD" id="rememberD">
+      <label> <img src="/assets/img/icons/img_chulo_rojo.png" alt=""> </label>
+      <label class="txt_g" for="rememberD">Recordar datos</label>
+    </div>
+    <div class="text-center mb-4">
+      <button type="submit" id="Iniciar_sesion" class="btn btn_red">Continuar</button>
+    </div>
+  </form>
+  <hr class="mb-3" />
+  <div>
+    <div>
+      <a id="Ingresar_sin_iniciar_sesion" (click)="anonymous()" class="txt_b cp">Ingresar sin iniciar sesión</a>
+    </div>
+    <div>
+      <a id="Recordar_contraseña" routerLink="/login/remember" class="txt_b cp">Recordar contraseña</a>
+    </div>
+    <div>
+      <a id="ir_Registrarse" routerLink="/login/register" class="txt_b cp">Registrarse</a>
+    </div>
+  </div>
+</div>
+

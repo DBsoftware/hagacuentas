@@ -1,0 +1,135 @@
+<div class="d-flex justify-content-between p-3">
+  <div class="d-flex align-items-center"></div>
+  <div class="d-flex align-items-center cp" (click)="back()">
+    <label class="back cp">Volver</label>
+    <img width="25" [src]="iconsApp.back" alt="">
+  </div>
+</div>
+<div class="text-center">
+  <div>
+      <img width="50" [src]="imgParser(subcategoria)"  alt="">
+  </div>
+  <h5 class="font-weight-bold mb-0 no_h_styles">
+    <h2>
+      {{ (categoria?.nombre ) | uppercase }}
+    </h2>
+  </h5>
+
+  <div>
+    <img width="20" [src]="iconsApp.down" alt="">
+  </div>
+  <div style="line-height:1">
+    <span class="gray no_h_styles">
+      <h3>
+        {{subcategoria?.nombre}}
+      </h3>
+    </span><br>
+    <!-- <span [class.d-none]="notaVal==''" class="badgeNote" [ngStyle]="{'color': colorNote[0].color}">{{ notaVal }}</span>  -->
+  </div>
+
+</div>
+
+<div class="row m-0 justify-content-center border-top border-bottom p-2 mt-3 align-items-center">
+  <h2 class="gray font-weight-bold mb-0">{{retornarNumero(calculadoraData.valorDisplay) | currency:lang:'symbol-narrow':(hasDecimals(calculadoraData.valorDisplay) ?'1.2':'1.0')}}</h2>
+</div>
+
+<div class="row m-0 pt-4 pb-3">
+  <div class="col p-0">
+    <div class="d-flex justify-content-center brd" style="padding-bottom: 10px;">
+      <input class="slideInput" id="fijo" name="fijo" type="checkbox" [(ngModel)]="movimiento.fijo">
+      <div (click)="clickSlide(fijo)"><i></i></div>
+    </div>
+    <div class="text-center" style="line-height:1">
+      <label id="lblFijo" class="menuItemLab" [class.green]="fijo" for="fijo">Fijo</label>
+    </div>
+  </div>
+  <div class="col p-0" (click)="openCalendar(true)">
+    <div class="d-flex justify-content-center brd">
+      <div>
+        <img alt="" [src]="iconos['alert_' + 'gray']"
+          style="margin-top: -18px;" width="48">
+      </div>
+    </div>
+    <div  class="text-center" style="line-height:1">
+      <label class="menuItemLab">Alerta</label>
+    </div>
+  </div>
+  <div class="col p-0" (click)="openCalendar(false)">
+    <div class="d-flex justify-content-center brd">
+      <div>
+        <img  alt="" [src]="iconos['calendar_' + mesSeleccionado()]"
+          style="margin-top: -18px;" width="48">
+      </div>
+    </div>
+    <div  class="text-center" style="line-height:1" >
+      <label class="menuItemLab" [class.orange]="mesSeleccionado() == 'on'">Fecha</label>
+    </div>
+  </div>
+  <div class="col p-0" (click)="nota = !nota">
+    <div class="d-flex justify-content-center">
+      <div>
+        <img alt="" [src]="iconos['note_' + validadorNota()]"
+          style="margin-top: -16px;" width="46">
+      </div>
+    </div>
+    <div class="text-center" style="line-height:1" >
+      <label [class.yellow]="validadorNota() == 'on'" class="menuItemLab">Nota</label>
+    </div>
+  </div>
+</div>
+
+
+<div class="divNota p-2 d-flex" *ngIf="nota">
+  <label clasS="mr-4 text-white font-weight-bold" for="">Nota</label>
+  <input class="col mr-2" type="coltext" name="descripcion" [(ngModel)]="movimiento.descripcion" >
+</div>
+<input type="hidden" [min]="minDate" [max]="maxDate" matInput [matDatepicker]="picker" >
+<mat-datepicker panelClass="datepickerOne" touchUi #picker (monthSelected)="monthSelectedHandler($event)" (closed)="oncloseCalendar()" ></mat-datepicker>
+<div class="border-top">
+  <div class="row m-0">
+    <div class="col item operator" (click)="engatillarCalculo('division')">÷</div>
+    <div class="col item" (click)="itemSelect('7')">7</div>
+    <div class="col item" (click)="itemSelect('8')">8</div>
+    <div class="col item" (click)="itemSelect('9')">9</div>
+    <div class="col item" (click)="del()">
+      <img style="min-width: 12.22px;width: 6vw;max-width: 40px;" [src]="iconos.delete" alt="">
+    </div>
+  </div>
+  <div class="row m-0">
+    <div class="col item operator" (click)="engatillarCalculo('multiplicaion')">x</div>
+    <div class="col item" (click)="itemSelect('4')">4</div>
+    <div class="col item" (click)="itemSelect('5')">5</div>
+    <div class="col item" (click)="itemSelect('6')">6</div>
+    <div class="col item" (click)="reset()">C</div>
+  </div>
+  <div class="row m-0">
+    <div class="col item operator" (click)="engatillarCalculo('resta')">-</div>
+    <div class="col item" (click)="itemSelect('1')">1</div>
+    <div class="col item" (click)="itemSelect('2')">2</div>
+    <div class="col item" (click)="itemSelect('3')">3</div>
+    <div class="col item" (click)="resolver()">=</div>
+  </div>
+  <div class="row m-0">
+    <div class="col item operator" (click)="engatillarCalculo('suma')">+</div>
+    <div class="col item" (click)="itemSelect('.')">.</div>
+    <div class="col item" (click)="itemSelect('0')">0</div>
+    <div class="col item">{{ lang=='CR'? '₡':'$' }}</div>
+    <!-- <div class="col item save" [ngClass]="{'red_save': type=='gastos'}" (click)="save()"> -->
+    <div class="col item save"  (click)="save()">
+      <img [src]="iconos.img_chulo_blanco" alt="" style="min-width: 12.22px;width: 6vw;max-width: 40px;">
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="valueUp">
+  <div class="position-absolute" style="right:0">
+    <img data-dismiss="modal" class="mt-2 mr-2" [src]="iconsApp.close" width="45">
+  </div>
+  <div class="modal-dialog  modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        Los valores registrados<br> deben ser positivos
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,79 @@
+// @import "../../../../scss/colors.scss";
+
+
+.modal-dialog{
+    max-width: none !important;
+    margin: 0 !important;
+}
+// body.showTerms {
+//     overflow: hidden;
+// }
+
+// body .modTerms {
+//     display: none;
+// }
+
+// body.showTerms .modTerms {
+//     position: fixed;
+//     display: block;
+//     overflow: auto;
+//     max-width: 400px;
+//     top: 0;
+//     text-align: center;
+//     width: 100%;
+//     height: 100%;
+//     background-color: $whiteGray;
+//     font-size: 16px;
+//     color: $darkGray;
+
+//     p {
+//         text-align: left;
+//     }
+
+//     ol {
+//         counter-reset: List;
+//         text-align: left;
+//         padding-left: 0;
+//         list-style: none;
+//         li {
+//             counter-increment: List;
+//             margin-bottom: .5em;
+//         }
+//         li::before {
+//             content: counter(List)". ";
+//             color: $red;
+//             font-weight: bold;
+//         }
+//     }
+
+//     ol.roman {
+//         li::before {
+//             content: counter(List, lower-roman)".";
+//             color: $red;
+//             font-weight: bold;
+//         }
+//     }
+
+//     ul {
+//         text-align: left;
+//         padding-left: 0;
+//         list-style: none;
+//         li {
+//             margin-bottom: .5em;
+//         }
+//         li::before {
+//             content: "•";
+//             color: $red;
+//             font-weight: bold;
+//         }
+//     }
+
+// }
+
+.divClose {
+    position: fixed;
+    width: 100%;
+    opacity: 0.7;
+    top: 0;
+    right: 1.2em;
+}

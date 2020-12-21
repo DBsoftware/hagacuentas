@@ -1,0 +1,24 @@
+#items-list{
+    counter-reset: item;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+#items-list > li {
+    display: block;
+    margin-bottom: .5em;
+    margin-left: 2em;
+}
+
+#items-list > li:before {
+    content: counter(item);
+    counter-increment: item;
+    position: absolute;
+    background: #8f9193;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 50%;
+    margin-left: -2em;
+    padding: 0 8px;
+    // margin-top: 5px;
+}

@@ -1,0 +1,32 @@
+<div>
+  <div class="header" title="Mujer feliz porque ha logrado su bienestar financiero al realizar su presupuesto en haga cuentas">
+    <div class="row m-0 h-100 align-items-end">
+      <div class="text-center p-3 text-white w-100">
+        <h1 class="_androgyne font-weight-100 mb-0" style="font-size: 24px;">Mis presupuestos</h1>
+        <div class="row justify-content-center">
+          <h2 style="font-size: 16px;width: 15em;">
+            Aquí encontrará el listado de los
+            presupuestos creados por usted.
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="div-search p-3 pl-4 pr-4 bg_lightgray">
+  <input #inputPres [disabled]="loading" (keyup)="validInpt($event)" (keyup.enter)="save(inputPres.value)"
+    class="form-control rounded-1_5 myPres" placeholder="Asigne un nombre a su presupuesto" type="text" maxlength="25">
+  <i class="icon-check  position-relative" (click)="save(inputPres.value)">
+    <img class="w-100" [src]="inputPres.value.length > 0 ? rojo:gris" alt="">
+    <div *ngIf="loading"  class="col-1 px-0 loader align-items-center position-absolute"></div>
+  </i>
+</div>
+<div class="d-flex justify-content-between p-3 item" *ngFor="let presu of presupuestosList | async" (click)="selectPresu(presu)">
+  <div class="d-flex align-items-center">
+    <i class="point mr-3"></i>
+    <span>{{presu.nombre}}</span>
+  </div>
+  <i>
+    <img [src]="next" alt="" width="18">
+  </i>
+</div>

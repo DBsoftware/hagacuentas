@@ -1,0 +1,48 @@
+label {
+    font-size: 16px;
+    margin: 0;
+    margin-left: .3em;
+}
+
+.month, .back {
+    color: #231f20;
+    font-weight: bold;
+}
+
+.itemForm {
+    label {
+        font-weight: bold;     
+        color: #4c4c4c;
+        margin-bottom: .2em;
+    }
+    input {
+        border: none;
+        border-radius: 1.5em;
+        font-size: 14px;
+        padding: .1em 1em;
+    }
+    input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: #bfbfbf;
+        opacity: 1; /* Firefox */
+    }
+    
+    input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: #bfbfbf;
+    }
+    
+    input::-ms-input-placeholder { /* Microsoft Edge */
+        color: #bfbfbf;
+    }
+}
+
+.divisor {
+    background-color: #e8e8e8;
+    padding: 1.2em;
+}
+
+.rounded {
+    border: none;
+    border-radius: 1.5em !important;
+    font-size: 14px;
+    padding: .1em 1em;
+}

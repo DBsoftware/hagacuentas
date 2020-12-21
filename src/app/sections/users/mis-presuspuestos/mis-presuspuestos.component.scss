@@ -1,0 +1,80 @@
+.header {
+    background: url(/assets/img/cabezotes/misPresupuestos.jpg) 0 0/100% 100% no-repeat;
+    height: 60vw;
+    max-height: 25em;
+}
+.div-search::before {
+    content: '|';
+    color: #58595b;
+    position: absolute;
+    font-size: 22px;
+    font-weight: 100;
+    margin-left: .8em;
+}
+
+.icon-check {
+    float: right;
+    width: 2em;
+    height: 2em;
+    margin-top: -2em;
+    margin-right: .3em;
+    z-index: 9;
+}
+
+.myPres {
+    font-size: 16px;
+    border: none;
+    padding: 1.2em 2.8em 1.2em 2em;
+    color: #666;
+}
+
+.myPres::placeholder { opacity: .5; font-size: 14px }
+.myPres:-ms-input-placeholder { opacity: .5; font-size: 14px }
+.myPres::-ms-input-placeholder { opacity: .5; font-size: 14px }
+
+.point {
+    background: red;
+    display: block;
+    width: .55em;
+    height: .55em;
+    border-radius: 50%;
+}
+
+.item {
+    color: #4c4c4c;
+    cursor: pointer;
+}
+
+.div-load{
+    min-height: 2em;
+    min-width: 2em;
+  }
+
+  .loader {
+    top: -.5em;
+    right: 2em;
+    z-index: 999;
+  }
+
+  .loader:after {
+    content: " ";
+    display: block;
+    width: 46px;
+    height: 46px;
+    width: 2.5em;
+    height: 2.5em;
+    margin: 1px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    border-color: red transparent red transparent;
+    animation: rotate 1.2s linear infinite;
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }

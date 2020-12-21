@@ -1,0 +1,162 @@
+label {
+    font-size: 16px;
+    margin: 0;
+    margin-left: .3em;
+}
+
+.month, .back {
+    color: #231f20;
+    font-weight: bold;
+}
+
+h5, .gray {
+    color: #4c4c4c;
+}
+
+.slideInput {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+}
+.slideInput+div {
+    background-color: #8f9193;
+    padding: 2px;
+    width: 4em;
+    height: 20px;
+    border-radius: 1em;
+    border: #1c9b90 solid 1px;
+    i {
+        float: left;
+        background: white;
+        display: block;
+        width: 14px;
+        height: 14px;
+        border-radius: 1em;
+    }
+}
+.slideInput:checked+div {
+    background-color: #1c9b90;
+    i {
+        float: right;
+    }
+}
+
+.brd {
+    border-right: 1px solid #8f9193;
+}
+
+.menuItemLab {
+    font-weight: bold;
+    font-size: 14px;
+    color: #4c4c4c;
+    margin-left: 0;
+}
+.item {
+    padding: 1em;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: #4c4c4c;
+    border-right: 1px solid #8b8b8b;
+    border-bottom: 1px solid #8b8b8b;
+}
+
+.operator {
+    background-color: #dadada;
+    border-left: 1px solid #8b8b8b;
+}
+
+.save {
+    background-color: #1c9b90;
+}
+.red_save {
+    background-color: #e00518;
+}
+
+.divNota {
+    background-color: #ffc343;
+    input {
+        border-radius: 1em;
+        border: none;
+        color: #4c4c4c;
+    }
+}
+
+.badgeNote {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.dv-spinner {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+}
+.dv-spinner {
+  content: " ";
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 3px solid gray;
+  border-color: gray transparent gray transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+    ::ng-deep  .mat-calendar-header{
+        background: #e01518;
+        color: white;
+    }
+
+    ::ng-deep .mat-calendar-body-selected{
+        background-color: #e01518;
+        color: #fff;
+    }
+    ::ng-deep .mat-calendar-body-today:not(.mat-calendar-body-selected){
+        border-color: #1B9B90
+    }
+
+    ::ng-deep  .mat-calendar-previous-button::after{
+        color: white;
+    }
+
+    ::ng-deep  .mat-calendar-next-button::after{
+        color: white;
+    }
+
+    ::ng-deep .mat-calendar-arrow {
+        border-top-color: white;
+    }
+
+    ::ng-deep .mat-calendar-body-cell-content{
+        font-size: 1.5em;
+    }
+
+    ::ng-deep .mat-calendar-table-header th {
+        font-size: 1em;;
+    }
+
+    ::ng-deep .ngb-tp-chevron::before {
+        color: #1B9B90
+    }
+
+.yellow{
+    color: #FEC64F;
+}
+.green {
+    color: #1B9B90;
+}
+
+.orange {
+    color: #EF7E33;
+}
+

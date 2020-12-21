@@ -1,0 +1,12 @@
+<div class="modal-body" style="max-width: initial;left:0;z-index: 9999;">
+  <div class="divClose text-right p-4">
+    <img (click)="activeModal.dismiss('Cross click')"  width="50" src="/assets/img/icons/close.png" alt="cerrar términos y condiciones">
+  </div>
+
+<div [ngSwitch]="lang">
+  <div *ngSwitchCase="'CR'"><app-terminos-costa-rica></app-terminos-costa-rica></div>
+  <div *ngSwitchCase="'SV'"><app-terminos-salvador></app-terminos-salvador></div>
+  <div *ngSwitchDefault><app-terminos-colombianos></app-terminos-colombianos></div>
+</div>
+
+</div>

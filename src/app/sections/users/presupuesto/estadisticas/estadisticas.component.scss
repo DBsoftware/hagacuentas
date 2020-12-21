@@ -1,0 +1,26 @@
+label {
+    font-size: 16px;
+    margin: 0;
+    margin-left: .3em;
+}
+
+.month, .back {
+    color: #231f20;
+    font-weight: bold;
+}
+
+.bg_green { background-color: #1c9b90; }
+.bg_yellow { background: #ffc343; }
+.bg_orange { background: #ef7e33; }
+.bg_blue { background: #0088bb; }
+
+.headItems {
+    border-width: 5px !important;
+    border-color: #8f9193 !important;
+    div {
+        border-radius: .5em .5em 0 0;
+    }
+    img {
+        width: 1.5em;
+    }
+}

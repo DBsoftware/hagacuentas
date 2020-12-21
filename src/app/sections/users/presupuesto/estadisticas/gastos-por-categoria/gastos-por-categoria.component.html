@@ -1,0 +1,34 @@
+<div class="p-2 pl-3 pr-3 w-100">
+  <div *ngFor="let categ of categorias | async" (click)="activeChart(categ)" class="row mx-0 justify-content-between w-100 py-2" style="background-color:#eff0f0">
+    <div class="col-8">
+      <div  class="row mx-0 justify-content-start" style="background-color:#eff0f0">
+        <div style="width: 3.2em;" class="pl-1 pr-1">
+          <img class="w-100 iconCateg" [src]="imgParser(categ.imagen)" alt="">
+        </div>
+        <div class="d-flex align-items-center h6 font-weight-bold m-0">
+          <div class="no_h_styles" >
+          <h3>
+            {{categ.nombre}}
+          </h3>
+          </div>
+      </div>
+    </div> 
+  </div>
+  <div class="col-2">
+      <div class="row mx-0 justify-content-end align-content-center h-100" >
+        <div >{{categ.valor | currency:lang:'symbol-narrow':'1.0' }}</div>
+        <div class="my-auto"  [class.collapsed]="categSelected!=categ.id">
+          <i class="d-flex imgItem"></i>
+        </div>
+      </div>
+  </div>
+</div>
+<h3 *ngIf="(categorias | async).length < 1" >No Hay Datos suficientes</h3>
+<div  class="row mx-0 justify-content-center w-100 h-100 align-content-center my-5" style="display: block" > 
+  <canvas baseChart
+  [data]="chart.doughnutChartData"
+  [labels]="chart.doughnutChartLabels"
+  [chartType]="doughnutChartType"
+  [options]="options">
+</canvas>
+</div>
